@@ -16,8 +16,8 @@
         overflow: hidden;
     }
     .slide-container {
-        width: 1280px;
-        height: 720px;
+        width: 100vw;   /* full viewport width */
+        height: 100vh;  /* full viewport height */
         background-color: #0f172a;
         display: flex;
         flex-direction: column;
@@ -193,10 +193,17 @@
 </div>
 <p class="solution-text"><span class="solution-highlight">OpenTitan</span> addresses these risks with transparent, verifiable hardware security</p>
 </div>
-<a href="page_3.html"
-   class="mt-10 inline-block px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-lg transition">
-  Next Slide →
-</a>
+<div class="navigation-buttons mt-10 flex justify-between w-full">
+  <a href="page_1.html"
+     class="inline-block px-8 py-3 rounded-full bg-gray-600 hover:bg-gray-700 text-white text-lg font-semibold shadow-lg transition">
+    ← Previous Slide
+  </a>
+
+  <a href="page_2.html"
+     class="inline-block px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-lg transition">
+    Next Slide →
+  </a>
+</div>
 </div>
 </div>
 </body>
