@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>What Problem Does It Solve?</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .header {
+        padding: 50px 80px 30px 80px;
+        border-bottom: 2px solid rgba(239, 68, 68, 0.3);
+    }
+    .slide-title {
+        font-size: 48px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .title-highlight {
+        color: #ef4444;
+    }
+    .content-wrapper {
+        flex: 1;
+        padding: 40px 80px 50px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .problem-list {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+    .problem-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        background-color: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+        border-radius: 8px;
+        padding: 18px 24px;
+        transition: all 0.2s ease;
+    }
+    .problem-icon {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(239, 68, 68, 0.2);
+        border: 2px solid rgba(239, 68, 68, 0.5);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .problem-icon i {
+        color: #ef4444;
+        font-size: 18px;
+    }
+    .problem-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .problem-text {
+        font-size: 20px;
+        color: #e2e8f0;
+        line-height: 1.4;
+        margin: 0;
+        font-weight: 400;
+    }
+    .problem-strong {
+        font-weight: 600;
+        color: #fecaca;
+    }
+    .solution-box {
+        background-color: rgba(59, 130, 246, 0.12);
+        border: 2px solid rgba(59, 130, 246, 0.4);
+        border-radius: 10px;
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .solution-icon {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(59, 130, 246, 0.25);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .solution-icon i {
+        color: #3b82f6;
+        font-size: 24px;
+    }
+    .solution-text {
+        font-size: 22px;
+        color: #ffffff;
+        font-weight: 600;
+        margin: 0;
+    }
+    .solution-highlight {
+        color: #3b82f6;
+    }
+    .decorative-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.04;
+        z-index: 0;
+    }
+    .circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: #ef4444;
+        top: -100px;
+        right: -80px;
+    }
+    .circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: #3b82f6;
+        bottom: -80px;
+        left: -60px;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="decorative-element circle-1"></div>
+<div class="decorative-element circle-2"></div>
+<div class="header">
+<h1 class="slide-title"><p>What <span class="title-highlight">Problem</span> Does It Solve?</p></h1>
+</div>
+<div class="content-wrapper">
+<div class="problem-list">
+<div class="problem-item">
+<div class="problem-icon">
+<i class="fas fa-bug"></i>
+</div>
+<div class="problem-content">
+<p class="problem-text"><span class="problem-strong">Software-only defenses are fragile</span> against modern threats and sophisticated attacks</p>
+</div>
+</div>
+<div class="problem-item">
+<div class="problem-icon">
+<i class="fas fa-unlock"></i>
+</div>
+<div class="problem-content">
+<p class="problem-text"><span class="problem-strong">Secrets in normal DRAM/SRAM</span> are susceptible to extraction and memory attacks</p>
+</div>
+</div>
+<div class="problem-item">
+<div class="problem-icon">
+<i class="fas fa-exclamation-triangle"></i>
+</div>
+<div class="problem-content">
+<p class="problem-text"><span class="problem-strong">Boot firmware can be modified, replaced, or rolled back</span> without detection</p>
+</div>
+</div>
+<div class="problem-item">
+<div class="problem-icon">
+<i class="fas fa-lock"></i>
+</div>
+<div class="problem-content">
+<p class="problem-text"><span class="problem-strong">Closed RoTs are hard to verify and audit</span> for backdoors or vulnerabilities</p>
+</div>
+</div>
+</div>
+<div class="solution-box">
+<div class="solution-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<p class="solution-text"><span class="solution-highlight">OpenTitan</span> addresses these risks with transparent, verifiable hardware security</p>
+</div>
+</div>
+</div>
+</body>
+</html>

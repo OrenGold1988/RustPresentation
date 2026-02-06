@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Pros of Using Rust on the Host Side</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .header {
+        padding: 40px 80px 25px 80px;
+        border-bottom: 2px solid rgba(16, 185, 129, 0.4);
+    }
+    .slide-title {
+        font-size: 44px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .title-highlight {
+        color: #10b981;
+    }
+    .content-wrapper {
+        flex: 1;
+        padding: 45px 80px 55px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .checklist-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 22px;
+        background-color: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 10px;
+        padding: 20px 28px;
+        transition: all 0.2s ease;
+    }
+    .check-icon-box {
+        width: 48px;
+        height: 48px;
+        background-color: rgba(16, 185, 129, 0.2);
+        border: 2px solid rgba(16, 185, 129, 0.5);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .check-icon-box i {
+        color: #10b981;
+        font-size: 22px;
+    }
+    .checklist-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+    }
+    .checklist-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+        line-height: 1.3;
+    }
+    .checklist-description {
+        font-size: 16px;
+        color: #cbd5e1;
+        margin: 0;
+        line-height: 1.4;
+        font-weight: 400;
+    }
+    .highlight-text {
+        color: #6ee7b7;
+        font-weight: 600;
+    }
+    .decorative-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.04;
+        z-index: 0;
+    }
+    .circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: #10b981;
+        top: -100px;
+        right: -80px;
+    }
+    .circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: #3b82f6;
+        bottom: -80px;
+        left: -60px;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="decorative-element circle-1"></div>
+<div class="decorative-element circle-2"></div>
+<div class="header">
+<h1 class="slide-title"><p><span class="title-highlight">Pros</span> of Using Rust on the Host Side</p></h1>
+</div>
+<div class="content-wrapper">
+<div class="checklist-container">
+<div class="checklist-item">
+<div class="check-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="checklist-content">
+<h3 class="checklist-title"><p>Memory Safety by Default</p></h3>
+<p class="checklist-description">Prevents <span class="highlight-text">buffer overflows</span> and <span class="highlight-text">use-after-free bugs</span> at compile time through ownership system</p>
+</div>
+</div>
+<div class="checklist-item">
+<div class="check-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="checklist-content">
+<h3 class="checklist-title"><p>Safer Concurrency</p></h3>
+<p class="checklist-description"><span class="highlight-text">Send/Sync discipline</span> and compile-time checks ensure <span class="highlight-text">data-race freedom</span> in multi-threaded code</p>
+</div>
+</div>
+<div class="checklist-item">
+<div class="check-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="checklist-content">
+<h3 class="checklist-title"><p>Clear, Expressive APIs</p></h3>
+<p class="checklist-description"><span class="highlight-text">Strong type system</span> and modern error handling with Result/Option types create self-documenting, reliable interfaces</p>
+</div>
+</div>
+<div class="checklist-item">
+<div class="check-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="checklist-content">
+<h3 class="checklist-title"><p>Performance Comparable to C/C++</p></h3>
+<p class="checklist-description"><span class="highlight-text">Zero-cost abstractions</span> and LLVM-based optimization with LTO deliver native performance without runtime overhead</p>
+</div>
+</div>
+<div class="checklist-item">
+<div class="check-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="checklist-content">
+<h3 class="checklist-title"><p>Robust Ecosystem</p></h3>
+<p class="checklist-description">Mature libraries for <span class="highlight-text">protocol parsing, serialization, and IPC</span> with strong community support</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Where OpenTitan Fits in the System</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .header {
+        padding: 40px 80px 25px 80px;
+        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+    }
+    .slide-title {
+        font-size: 44px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .title-highlight {
+        color: #3b82f6;
+    }
+    .content-wrapper {
+        flex: 1;
+        padding: 40px 80px 50px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+    }
+    .architecture-container {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .component-box {
+        flex: 1;
+        border-radius: 12px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+    }
+    .host-box {
+        background-color: rgba(100, 116, 139, 0.15);
+        border: 2px solid rgba(100, 116, 139, 0.4);
+    }
+    .opentitan-box {
+        background-color: rgba(59, 130, 246, 0.15);
+        border: 2px solid rgba(59, 130, 246, 0.5);
+    }
+    .component-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+    }
+    .component-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .host-icon {
+        background-color: rgba(100, 116, 139, 0.3);
+        border: 2px solid rgba(100, 116, 139, 0.6);
+    }
+    .host-icon i {
+        color: #94a3b8;
+        font-size: 22px;
+    }
+    .opentitan-icon {
+        background-color: rgba(59, 130, 246, 0.3);
+        border: 2px solid rgba(59, 130, 246, 0.7);
+    }
+    .opentitan-icon i {
+        color: #3b82f6;
+        font-size: 22px;
+    }
+    .component-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .component-subtitle {
+        font-size: 14px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    .host-subtitle {
+        background-color: rgba(239, 68, 68, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        color: #fca5a5;
+    }
+    .opentitan-subtitle {
+        background-color: rgba(16, 185, 129, 0.2);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #6ee7b7;
+    }
+    .component-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .list-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        color: #cbd5e1;
+        line-height: 1.4;
+    }
+    .list-item i {
+        font-size: 12px;
+        width: 16px;
+    }
+    .host-item i {
+        color: #94a3b8;
+    }
+    .opentitan-item i {
+        color: #3b82f6;
+    }
+    .communication-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        position: relative;
+        min-width: 200px;
+    }
+    .arrow-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    .arrow-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .arrow-line {
+        width: 80px;
+        height: 2px;
+        background-color: #64748b;
+        position: relative;
+    }
+    .arrow-line::after {
+        content: '';
+        position: absolute;
+        right: -6px;
+        top: -4px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid #64748b;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+    .arrow-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .arrow-line-left {
+        width: 80px;
+        height: 2px;
+        background-color: #3b82f6;
+        position: relative;
+    }
+    .arrow-line-left::before {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: -4px;
+        width: 0;
+        height: 0;
+        border-right: 8px solid #3b82f6;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+    .arrow-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #94a3b8;
+    }
+    .arrow-label-response {
+        color: #60a5fa;
+    }
+    .protocol-box {
+        background-color: rgba(139, 92, 246, 0.15);
+        border: 2px solid rgba(139, 92, 246, 0.4);
+        border-radius: 8px;
+        padding: 14px 18px;
+        text-align: center;
+    }
+    .protocol-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #c4b5fd;
+        margin: 0 0 8px 0;
+    }
+    .protocol-list {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .protocol-tag {
+        background-color: rgba(139, 92, 246, 0.25);
+        border: 1px solid rgba(139, 92, 246, 0.5);
+        border-radius: 4px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #e9d5ff;
+    }
+    .security-note {
+        background-color: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 8px;
+        padding: 14px 20px;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .security-note i {
+        color: #10b981;
+        font-size: 20px;
+    }
+    .security-note-text {
+        font-size: 15px;
+        color: #d1fae5;
+        font-weight: 500;
+        margin: 0;
+    }
+    .decorative-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.04;
+        z-index: 0;
+    }
+    .circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: #3b82f6;
+        top: -100px;
+        right: -80px;
+    }
+    .circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: #8b5cf6;
+        bottom: -80px;
+        left: -60px;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="decorative-element circle-1"></div>
+<div class="decorative-element circle-2"></div>
+<div class="header">
+<h1 class="slide-title"><p>Where <span class="title-highlight">OpenTitan</span> Fits in the System</p></h1>
+</div>
+<div class="content-wrapper">
+<div class="architecture-container">
+<div class="component-box host-box">
+<div class="component-header">
+<div class="component-icon host-icon">
+<i class="fas fa-server"></i>
+</div>
+<div>
+<h2 class="component-title"><p>Host SoC</p></h2>
+<span class="component-subtitle host-subtitle"><p>Less Trusted</p></span>
+</div>
+</div>
+<div class="component-list">
+<div class="list-item host-item">
+<i class="fas fa-circle"></i>
+<p>Runs main application workloads</p>
+</div>
+<div class="list-item host-item">
+<i class="fas fa-circle"></i>
+<p>Requests security services via APIs</p>
+</div>
+<div class="list-item host-item">
+<i class="fas fa-circle"></i>
+<p>Cannot directly access secrets</p>
+</div>
+<div class="list-item host-item">
+<i class="fas fa-circle"></i>
+<p>Policy-enforced interactions only</p>
+</div>
+</div>
+</div>
+<div class="communication-section">
+<div class="arrow-container">
+<div class="arrow-right">
+<div class="arrow-line"></div>
+<span class="arrow-label"><p>Request</p></span>
+</div>
+<div class="arrow-left">
+<span class="arrow-label arrow-label-response"><p>Response</p></span>
+<div class="arrow-line-left"></div>
+</div>
+</div>
+<div class="protocol-box">
+<h3 class="protocol-title"><p>Communication</p></h3>
+<div class="protocol-list">
+<span class="protocol-tag"><p>SPI</p></span>
+<span class="protocol-tag"><p>I²C</p></span>
+<span class="protocol-tag"><p>UART</p></span>
+</div>
+</div>
+</div>
+<div class="component-box opentitan-box">
+<div class="component-header">
+<div class="component-icon opentitan-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<div>
+<h2 class="component-title"><p>OpenTitan RoT</p></h2>
+<span class="component-subtitle opentitan-subtitle"><p>Highly Trusted</p></span>
+</div>
+</div>
+<div class="component-list">
+<div class="list-item opentitan-item">
+<i class="fas fa-check"></i>
+<p>Isolated security component</p>
+</div>
+<div class="list-item opentitan-item">
+<i class="fas fa-check"></i>
+<p>Enforces security policy decisions</p>
+</div>
+<div class="list-item opentitan-item">
+<i class="fas fa-check"></i>
+<p>Protects cryptographic secrets</p>
+</div>
+<div class="list-item opentitan-item">
+<i class="fas fa-check"></i>
+<p>Provides attested results only</p>
+</div>
+</div>
+</div>
+</div>
+<div class="security-note">
+<i class="fas fa-lock"></i>
+<p class="security-note-text">Clear separation reduces blast radius of host compromise — secrets remain inside the RoT</p>
+</div>
+</div>
+</div>
+</body>
+</html>

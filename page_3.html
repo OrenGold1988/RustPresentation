@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>OpenTitan Chip Purpose and Protections</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .header {
+        padding: 40px 80px 25px 80px;
+        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+    }
+    .slide-title {
+        font-size: 44px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .title-highlight {
+        color: #3b82f6;
+    }
+    .content-wrapper {
+        flex: 1;
+        padding: 35px 80px 45px 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .feature-card {
+        background-color: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 10px;
+        padding: 24px;
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+    }
+    .feature-icon-box {
+        width: 56px;
+        height: 56px;
+        background-color: rgba(59, 130, 246, 0.2);
+        border: 2px solid rgba(59, 130, 246, 0.5);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .feature-icon-box i {
+        color: #3b82f6;
+        font-size: 26px;
+    }
+    .feature-content {
+        flex: 1;
+    }
+    .feature-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 8px 0;
+    }
+    .feature-description {
+        font-size: 15px;
+        color: #cbd5e1;
+        line-height: 1.4;
+        margin: 0;
+        font-weight: 400;
+    }
+    .protections-section {
+        background-color: rgba(16, 185, 129, 0.08);
+        border: 2px solid rgba(16, 185, 129, 0.3);
+        border-radius: 10px;
+        padding: 22px 28px;
+    }
+    .protections-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 16px;
+    }
+    .protections-icon {
+        width: 44px;
+        height: 44px;
+        background-color: rgba(16, 185, 129, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .protections-icon i {
+        color: #10b981;
+        font-size: 22px;
+    }
+    .protections-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .protections-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+    .protection-item {
+        background-color: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        border-radius: 6px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .protection-item i {
+        color: #10b981;
+        font-size: 14px;
+    }
+    .protection-text {
+        font-size: 14px;
+        color: #e2e8f0;
+        font-weight: 500;
+        margin: 0;
+    }
+    .decorative-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.04;
+        z-index: 0;
+    }
+    .circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: #3b82f6;
+        top: -100px;
+        right: -80px;
+    }
+    .circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: #10b981;
+        bottom: -80px;
+        left: -60px;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="decorative-element circle-1"></div>
+<div class="decorative-element circle-2"></div>
+<div class="header">
+<h1 class="slide-title"><p><span class="title-highlight">OpenTitan</span> Chip Purpose and Protections</p></h1>
+</div>
+<div class="content-wrapper">
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-key"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Secure Key Storage</p></h3>
+<p class="feature-description">Cryptographic keys sealed with access control, isolated from host memory</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-check-circle"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Secure Boot Enforcement</p></h3>
+<p class="feature-description">Measured boot and verified boot to ensure firmware integrity and authenticity</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-microchip"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Hardware Cryptography</p></h3>
+<p class="feature-description">Accelerated crypto operations (AES, HMAC, ECC) with constant-time implementations</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-id-card"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Device Identity &amp; Attestation</p></h3>
+<p class="feature-description">Provisioned secrets and certificates for unique device identity and remote attestation</p>
+</div>
+</div>
+</div>
+<div class="protections-section">
+<div class="protections-header">
+<div class="protections-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3 class="protections-title"><p>Protection Against Threats</p></h3>
+</div>
+<div class="protections-grid">
+<div class="protection-item">
+<i class="fas fa-bug"></i>
+<p class="protection-text">Software Attacks</p>
+</div>
+<div class="protection-item">
+<i class="fas fa-hammer"></i>
+<p class="protection-text">Physical Tampering</p>
+</div>
+<div class="protection-item">
+<i class="fas fa-bolt"></i>
+<p class="protection-text">Fault Injection</p>
+</div>
+<div class="protection-item">
+<i class="fas fa-broadcast-tower"></i>
+<p class="protection-text">Side-Channel Attacks</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

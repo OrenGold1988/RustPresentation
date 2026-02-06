@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Benefits of Open Source Security Hardware</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+    }
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: #0f172a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+    .header {
+        padding: 40px 80px 25px 80px;
+        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+    }
+    .slide-title {
+        font-size: 44px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+    }
+    .title-highlight {
+        color: #3b82f6;
+    }
+    .content-wrapper {
+        flex: 1;
+        padding: 40px 80px 50px 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    .features-grid-top {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    .features-grid-bottom {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 880px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .feature-card {
+        background-color: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 10px;
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+    }
+    .feature-icon-box {
+        width: 64px;
+        height: 64px;
+        background-color: rgba(59, 130, 246, 0.2);
+        border: 2px solid rgba(59, 130, 246, 0.5);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .feature-icon-box i {
+        color: #3b82f6;
+        font-size: 28px;
+    }
+    .feature-content {
+        flex: 1;
+    }
+    .feature-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0 0 10px 0;
+    }
+    .feature-description {
+        font-size: 14px;
+        color: #cbd5e1;
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 400;
+    }
+    .decorative-element {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.04;
+        z-index: 0;
+    }
+    .circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: #3b82f6;
+        top: -100px;
+        right: -80px;
+    }
+    .circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: #10b981;
+        bottom: -80px;
+        left: -60px;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="decorative-element circle-1"></div>
+<div class="decorative-element circle-2"></div>
+<div class="header">
+<h1 class="slide-title"><p><span class="title-highlight">Benefits</span> of Open Source Security Hardware</p></h1>
+</div>
+<div class="content-wrapper">
+<div class="features-grid-top">
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-search"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Faster Vulnerability Discovery</p></h3>
+<p class="feature-description">Open inspection enables rapid identification and remediation of security flaws by global experts</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-users"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Community-Driven Improvements</p></h3>
+<p class="feature-description">Collaborative development accelerates innovation and enhances design quality through diverse contributions</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-balance-scale"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Vendor-Neutral Design</p></h3>
+<p class="feature-description">Independent governance prevents single-vendor control and ensures long-term project sustainability</p>
+</div>
+</div>
+</div>
+<div class="features-grid-bottom">
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-unlock"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Avoids Proprietary Lock-In</p></h3>
+<p class="feature-description">Freedom to modify, integrate, and customize without licensing restrictions or vendor dependencies</p>
+</div>
+</div>
+<div class="feature-card">
+<div class="feature-icon-box">
+<i class="fas fa-graduation-cap"></i>
+</div>
+<div class="feature-content">
+<h3 class="feature-title"><p>Academic &amp; Industry Research</p></h3>
+<p class="feature-description">Open design enables reproducible research, formal verification, and security analysis methodologies</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
