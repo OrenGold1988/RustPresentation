@@ -5,7 +5,6 @@
   <meta content="width=1280, height=720" name="viewport"/>
   <title>Benefits of Open Source Security Hardware</title>
 
-  <!-- CSS dependencies -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
@@ -17,252 +16,128 @@
       --green:#10b981;
       --text:#ffffff;
       --muted:#cbd5e1;
-
-      /* Bottom nav height used only to reserve space (no scrollbars) */
-      --bottom-nav-height: 68px;      /* slightly smaller than before */
-      --bottom-padding-extra: 18px;   /* breathing room above nav */
+      /* Standard Nav Height */
+      --nav-height: 80px;
     }
 
     html, body { height: 100%; }
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: 'Inter', sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      overflow: hidden; /* no page scrollbars */
+      overflow: hidden;
     }
 
     .slide-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
+      width: 100vw; height: 100vh;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
       isolation: isolate;
     }
 
     .header {
-      padding: 34px 70px 20px 70px; /* slightly tighter */
+      padding: 34px 70px 20px 70px;
       border-bottom: 2px solid rgba(59,130,246,0.3);
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
       flex-shrink: 0;
     }
 
     .slide-title {
-      font-size: 50px;          /* was 44px */
-      font-weight: 800;
-      line-height: 1.15;
-      margin: 0;
-      color: var(--text);
+      font-size: 50px; font-weight: 800;
+      line-height: 1.15; margin: 0;
       letter-spacing: -0.02em;
-
-      /* animation */
-      opacity: 0;
-      transform: translateY(-8px);
+      opacity: 0; transform: translateY(-8px);
       animation: fadeInDown 700ms ease-out forwards 120ms;
-      text-wrap: balance;
     }
     .title-highlight { color: var(--blue); }
 
-    /* Content area — no scrolling; we reserve space at the bottom so it never overlaps the nav */
     .content-wrapper {
-      flex: 1 1 auto;
-      padding: 30px 70px calc(var(--bottom-nav-height) + var(--bottom-padding-extra)); /* smaller all around */
-      display: flex;
-      flex-direction: column;
-      gap: 22px; /* was 30px */
-      position: relative;
-      z-index: 2;
-      overflow: hidden; /* no inner scrollbar */
+      flex: 1;
+      /* Padding bottom set to nav-height + buffer */
+      padding: 30px 70px calc(var(--nav-height) + 20px) 70px;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      gap: 22px; position: relative; z-index: 2;
     }
 
     .features-grid-top {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px; /* was 20px */
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
     }
 
     .features-grid-bottom {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px; /* was 20px */
-      max-width: 860px; /* slightly narrower */
-      margin: 0 auto;
-      width: 100%;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 16px; max-width: 860px; margin: 0 auto; width: 100%;
     }
 
     .feature-card {
       background-color: rgba(59,130,246,0.08);
       border: 1px solid rgba(59,130,246,0.3);
-      border-radius: 10px;
-      padding: 22px;             /* was 26px */
-      display: flex;
-      flex-direction: column;
-      gap: 12px;                 /* was 16px */
-      align-items: center;
-      text-align: center;
-
-      /* entrance */
-      opacity: 0;
-      transform: translateY(12px);
+      border-radius: 10px; padding: 22px;
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: center; text-align: center;
+      opacity: 0; transform: translateY(12px);
       box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-    }
-
-    /* Staggered entrances: top row then bottom row */
-    .features-grid-top .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 180ms; }
-    .features-grid-top .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 250ms; }
-    .features-grid-top .feature-card:nth-child(3) { animation: fadeUp 600ms ease-out forwards 320ms; }
-
-    .features-grid-bottom .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 400ms; }
-    .features-grid-bottom .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 470ms; }
-
-    .feature-card:hover {
-      transform: translateY(9px); /* subtle glide */
       transition: transform 280ms ease;
     }
 
+    .features-grid-top .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 180ms; }
+    .features-grid-top .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 250ms; }
+    .features-grid-top .feature-card:nth-child(3) { animation: fadeUp 600ms ease-out forwards 320ms; }
+    .features-grid-bottom .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 400ms; }
+    .features-grid-bottom .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 470ms; }
+
+    .feature-card:hover { transform: translateY(-5px); background-color: rgba(59,130,246,0.12); }
+
     .feature-icon-box {
-      width: 56px;               /* was 64px */
-      height: 56px;
+      width: 56px; height: 56px;
       background-color: rgba(59,130,246,0.2);
       border: 2px solid rgba(59,130,246,0.5);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      border-radius: 10px; display: flex;
+      align-items: center; justify-content: center;
     }
-    .feature-icon-box i {
-      font-size: 24px;           /* was 28px */
-      color: var(--blue);
-    }
+    .feature-icon-box i { font-size: 24px; color: var(--blue); }
+    .feature-title { font-size: 20px; font-weight: 700; margin: 0; }
+    .feature-description { font-size: 13px; color: var(--muted); line-height: 1.45; }
 
-    .feature-title {
-      font-size: 20px;           /* was 19px */
-      font-weight: 700;
-      margin: 0 0 8px 0;         /* was 10px */
-      color: var(--text);
-    }
-    .feature-description {
-      font-size: 13px;           /* was 14px */
-      color: var(--muted);
-      line-height: 1.45;         /* was 1.5 */
-      margin: 0;
-    }
-
-    /* Decorative circles — now gently floating */
-    .decorative-element {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.05;
-      z-index: 0;
-      pointer-events: none;
-      will-change: transform, opacity;
-      filter: blur(0.15px);
-    }
-    .circle-1 {
-      width: 320px;              /* a bit smaller to save space */
-      height: 320px;
-      background-color: var(--blue);
-      top: -90px;
-      right: -70px;
-      animation: floatRight 18s ease-in-out infinite;
-    }
-    .circle-2 {
-      width: 230px;              /* a bit smaller */
-      height: 230px;
-      background-color: var(--green);
-      bottom: -70px;
-      left: -50px;
-      animation: floatLeft 20s ease-in-out infinite;
-    }
-
-    /* Bottom navigation (fixed overlay) */
+    /* --- Standardized Navigation Bar --- */
     .bottom-nav {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: var(--bottom-nav-height);
-      padding: 12px 22px; /* matches --bottom-nav-height */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 3;
-      background: linear-gradient(
-        180deg,
-        rgba(15,23,42,0) 0%,
-        rgba(15,23,42,0.65) 50%,
-        rgba(15,23,42,0.95) 100%
-      );
-      box-sizing: border-box;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: var(--nav-height); padding: 0 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+      z-index: 100; pointer-events: none;
     }
 
     .nav-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;        /* slightly smaller pills */
-      border-radius: 999px;
-      font-weight: 700;
-      color: #fff;
-      font-size: 15px;           /* was 16px */
-      text-decoration: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      white-space: nowrap;
-
-      /* hover lift */
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 22px; border-radius: 999px; text-decoration: none;
+      font-weight: 700; font-size: 16px; color: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease;
     }
-    .nav-prev { background-color: #4b5563; }      /* gray-600 */
-    .nav-prev:hover { background-color: #374151; transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
+    .nav-prev { background-color: #4b5563; }
     .nav-next { background-color: var(--blue); }
-    .nav-next:hover { background-color: #2563eb; transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
+    .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-    /* Keyframes */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* Decorative circles */
+    .decorative-element {
+      position: absolute; border-radius: 50%; opacity: 0.05; z-index: 0; pointer-events: none;
     }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-10px) scale(0.995); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes floatRight {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(-14px, 10px) scale(1.03); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes floatLeft {
-      0%   { transform: translate(0, 0) scale(1); }
-      50%  { transform: translate(14px, -10px) scale(1.03); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
+    .circle-1 { width: 320px; height: 320px; background-color: var(--blue); top: -90px; right: -70px; animation: floatRight 18s ease-in-out infinite; }
+    .circle-2 { width: 230px; height: 230px; background-color: var(--green); bottom: -70px; left: -50px; animation: floatLeft 20s ease-in-out infinite; }
 
-    /* Safety: if viewport height is tight, shave a bit more spacing */
-    @media (max-height: 640px) {
-      .header { padding: 28px 60px 16px 60px; }
-      .slide-title { font-size: 38px; }
-      .content-wrapper { padding: 24px 60px calc(var(--bottom-nav-height) + 12px); }
-    }
-
-    /* Reduced-motion users */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
-      .slide-title, .feature-card { opacity: 1 !important; transform: none !important; }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-14px, 10px); } }
+    @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -10px); } }
   </style>
 </head>
 
 <body>
   <div class="slide-container">
-
-    <!-- Decorative circles -->
     <div class="decorative-element circle-1"></div>
     <div class="decorative-element circle-2"></div>
 
-    <!-- Header -->
     <div class="header">
       <h1 class="slide-title">
         <span class="title-highlight">Benefits</span><br>
@@ -270,88 +145,47 @@
       </h1>
     </div>
 
-    <!-- Content (no scrollbars; sized to fit) -->
     <div class="content-wrapper">
-
       <div class="features-grid-top">
         <div class="feature-card">
-          <div class="feature-icon-box">
-            <i class="fas fa-search" aria-hidden="true"></i>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Faster Vulnerability Discovery</h3>
-            <p class="feature-description">
-              Open inspection enables rapid identification and remediation of security flaws by global experts
-            </p>
-          </div>
+          <div class="feature-icon-box"><i class="fas fa-search"></i></div>
+          <h3 class="feature-title">Faster Vulnerability Discovery</h3>
+          <p class="feature-description">Open inspection enables rapid identification and remediation by global experts</p>
         </div>
-
         <div class="feature-card">
-          <div class="feature-icon-box">
-            <i class="fas fa-users" aria-hidden="true"></i>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Community-Driven Improvements</h3>
-            <p class="feature-description">
-              Collaborative development accelerates innovation and improves design quality
-            </p>
-          </div>
+          <div class="feature-icon-box"><i class="fas fa-users"></i></div>
+          <h3 class="feature-title">Community Improvements</h3>
+          <p class="feature-description">Collaborative development accelerates innovation and improves design quality</p>
         </div>
-
         <div class="feature-card">
-          <div class="feature-icon-box">
-            <i class="fas fa-balance-scale" aria-hidden="true"></i>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Vendor-Neutral Design</h3>
-            <p class="feature-description">
-              Independent governance prevents vendor lock-in and ensures long-term sustainability
-            </p>
-          </div>
+          <div class="feature-icon-box"><i class="fas fa-balance-scale"></i></div>
+          <h3 class="feature-title">Vendor-Neutral Design</h3>
+          <p class="feature-description">Independent governance prevents lock-in and ensures long-term sustainability</p>
         </div>
       </div>
 
       <div class="features-grid-bottom">
         <div class="feature-card">
-          <div class="feature-icon-box">
-            <i class="fas fa-unlock" aria-hidden="true"></i>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Avoids Proprietary Lock-In</h3>
-            <p class="feature-description">
-              Freedom to modify, integrate, and customize without licensing restrictions
-            </p>
-          </div>
+          <div class="feature-icon-box"><i class="fas fa-unlock"></i></div>
+          <h3 class="feature-title">Avoids Proprietary Lock-In</h3>
+          <p class="feature-description">Freedom to modify and integrate without licensing restrictions</p>
         </div>
-
         <div class="feature-card">
-          <div class="feature-icon-box">
-            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Academic &amp; Industry Research</h3>
-            <p class="feature-description">
-              Open designs enable reproducible research, verification, and security analysis
-            </p>
-          </div>
+          <div class="feature-icon-box"><i class="fas fa-graduation-cap"></i></div>
+          <h3 class="feature-title">Research Enablement</h3>
+          <p class="feature-description">Enables reproducible research, verification, and deep security analysis</p>
         </div>
       </div>
-
     </div>
 
-    <!-- Bottom-fixed navigation -->
     <div class="bottom-nav">
-      <a class="nav-btn nav-prev" href="page_5.html" aria-label="Previous Slide">
-        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        <span>Previous Slide</span>
+      <a class="nav-btn nav-prev" href="page_5.html">
+        <i class="fas fa-arrow-left"></i><span>Previous Slide</span>
       </a>
-
-      <a class="nav-btn nav-next" href="page_7.html" aria-label="Next Slide">
-        <span>Next Slide</span>
-        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+      <a class="nav-btn nav-next" href="page_7.html">
+        <span>Next Slide</span><i class="fas fa-arrow-right"></i>
       </a>
     </div>
-
   </div>
 </body>
 </html>

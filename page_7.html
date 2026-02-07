@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
 <title>Architecture Split: Core vs Host</title>
-<!-- Dependencies -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
@@ -19,12 +18,13 @@
     --slate:#94a3b8;
     --text:#ffffff;
     --muted:#cbd5e1;
+    /* Standard Nav Height */
+    --nav-height: 80px;
   }
 
   html, body { height: 100%; }
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: 'Inter', sans-serif;
     overflow: hidden;
     background-color: var(--bg);
@@ -32,466 +32,158 @@
   }
 
   .slide-container {
-    width: 100vw;   /* full viewport width */
-    height: 100vh;  /* full viewport height */
-    background-color: var(--bg);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
     isolation: isolate;
   }
 
   .header {
     padding: 40px 80px 25px 80px;
     border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
   }
   .slide-title {
-    font-size: 44px;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-
-    opacity: 0;
-    transform: translateY(-8px);
+    font-size: 44px; font-weight: 800;
+    line-height: 1.15; letter-spacing: -0.02em;
+    opacity: 0; transform: translateY(-8px);
     animation: fadeInDown 700ms ease-out forwards 120ms;
-    text-wrap: balance;
   }
   .title-highlight { color: #3b82f6; }
 
   .content-wrapper {
     flex: 1;
-    padding: 40px 80px 50px 80px;
-    display: flex;
-    flex-direction: column;
+    /* Reserved space for fixed bottom nav */
+    padding: 30px 80px calc(var(--nav-height) + 20px) 80px;
+    display: flex; flex-direction: column;
     justify-content: center;
-    position: relative;
-    z-index: 2;
-    gap: 18px;
+    position: relative; z-index: 2;
+    gap: 12px;
   }
 
   .architecture-container {
-    display: flex;
-    gap: 40px;
-    align-items: stretch;
-    justify-content: space-between;
+    display: flex; gap: 40px;
+    align-items: stretch; justify-content: space-between;
   }
 
   .component-box {
-    flex: 1;
-    border-radius: 12px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-
-    /* Animated entrance */
-    opacity: 0;
-    transform: translateY(12px);
+    flex: 1; border-radius: 12px; padding: 25px;
+    display: flex; flex-direction: column; gap: 14px;
+    opacity: 0; transform: translateY(12px);
     box-shadow: 0 10px 26px rgba(0,0,0,0.18);
   }
-  .host-box {
-    background-color: rgba(251, 146, 60, 0.15);
-    border: 2px solid rgba(251, 146, 60, 0.4);
-    animation: fadeUp 650ms ease-out forwards 220ms;
-  }
-  .core-box {
-    background-color: rgba(16, 185, 129, 0.15);
-    border: 2px solid rgba(16, 185, 129, 0.5);
-    animation: fadeUp 650ms ease-out forwards 360ms;
-  }
+  .host-box { background-color: rgba(251, 146, 60, 0.15); border: 2px solid rgba(251, 146, 60, 0.4); animation: fadeUp 650ms ease-out forwards 220ms; }
+  .core-box { background-color: rgba(16, 185, 129, 0.15); border: 2px solid rgba(16, 185, 129, 0.5); animation: fadeUp 650ms ease-out forwards 360ms; }
 
-  .component-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 8px;
-  }
-  .component-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-  }
-  .host-icon {
-    background-color: rgba(251, 146, 60, 0.3);
-    border: 2px solid rgba(251, 146, 60, 0.6);
-  }
-  .host-icon i {
-    color: var(--orange);
-    font-size: 22px;
-  }
-  .core-icon {
-    background-color: rgba(16, 185, 129, 0.3);
-    border: 2px solid rgba(16, 185, 129, 0.7);
-  }
-  .core-icon i {
-    color: var(--green);
-    font-size: 22px;
-  }
+  .component-header { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+  .component-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .host-icon { background-color: rgba(251, 146, 60, 0.3); border: 2px solid rgba(251, 146, 60, 0.6); color: var(--orange); }
+  .core-icon { background-color: rgba(16, 185, 129, 0.3); border: 2px solid rgba(16, 185, 129, 0.7); color: var(--green); }
 
-  .component-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-  }
-  .component-subtitle {
-    font-size: 14px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  .host-subtitle {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
-  }
-  .core-subtitle {
-    background-color: rgba(16, 185, 129, 0.2);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    color: #6ee7b7;
-  }
+  .component-title { font-size: 24px; font-weight: 700; margin: 0; }
+  .component-subtitle { font-size: 14px; font-weight: 500; padding: 2px 12px; border-radius: 4px; display: inline-block; }
+  .host-subtitle { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+  .core-subtitle { background-color: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
 
-  .component-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .list-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    color: #cbd5e1;
-    line-height: 1.4;
-
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  /* Stagger list items inside each box */
+  .component-list { display: flex; flex-direction: column; gap: 8px; }
+  .list-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1; opacity: 0; transform: translateY(8px); }
   .component-box .list-item:nth-child(1){ animation: fadeUp 520ms ease-out forwards 280ms; }
   .component-box .list-item:nth-child(2){ animation: fadeUp 520ms ease-out forwards 340ms; }
   .component-box .list-item:nth-child(3){ animation: fadeUp 520ms ease-out forwards 400ms; }
   .component-box .list-item:nth-child(4){ animation: fadeUp 520ms ease-out forwards 460ms; }
 
-  .list-item i {
-    font-size: 12px;
-    width: 16px;
-  }
-  .host-item i { color: var(--orange); }
-  .core-item  i { color: var(--green); }
-
   .communication-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    position: relative;
-    min-width: 200px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; min-width: 200px; opacity: 0; animation: fadeUp 650ms ease-out forwards 300ms;
+  }
+  .boundary-box { background-color: rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.5); border-radius: 8px; padding: 15px; text-align: center; }
+  .boundary-icon { font-size: 24px; color: #a78bfa; margin-bottom: 4px; }
+  .boundary-title { font-size: 14px; font-weight: 700; color: #c4b5fd; margin-bottom: 4px; }
+  .boundary-text { font-size: 12px; color: #ddd6fe; line-height: 1.3; margin: 0; }
 
-    opacity: 0;
-    transform: translateY(12px);
-    animation: fadeUp 650ms ease-out forwards 300ms;
-  }
-  .boundary-box {
-    background-color: rgba(139, 92, 246, 0.15);
-    border: 2px solid rgba(139, 92, 246, 0.5);
-    border-radius: 8px;
-    padding: 18px 22px;
-    text-align: center;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.16);
-  }
-  .boundary-icon {
-    font-size: 32px;
-    color: #a78bfa;
-    margin-bottom: 8px;
-  }
-  .boundary-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #c4b5fd;
-    margin: 0 0 8px 0;
-  }
-  .boundary-text {
-    font-size: 13px;
-    color: #ddd6fe;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .arrow-container {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-top: 10px;
-  }
-  .arrow-vertical {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-  .arrow-line-vert,
-  .arrow-line-vert-up {
-    width: 2px;
-    height: 30px;
-    position: relative;
-    overflow: hidden;
-  }
-  .arrow-line-vert { background-color: #64748b; }
-  .arrow-line-vert::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: -4px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid #64748b;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-  }
+  .arrow-line-vert, .arrow-line-vert-up { width: 2px; height: 25px; position: relative; overflow: hidden; background-color: #64748b; }
+  .arrow-line-vert::after { content: ''; position: absolute; bottom: -5px; left: -4px; border-top: 7px solid #64748b; border-left: 5px solid transparent; border-right: 5px solid transparent; }
   .arrow-line-vert-up { background-color: #8b5cf6; }
-  .arrow-line-vert-up::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: -4px;
-    width: 0;
-    height: 0;
-    border-bottom: 8px solid #8b5cf6;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-  }
-  /* Animated shimmer moving along the vertical lines */
-  .arrow-line-vert::before,
-  .arrow-line-vert-up::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%);
-    animation: vertSweep 2.4s ease-in-out infinite;
-  }
-  .arrow-line-vert-up::after {
-    top: 60%;
-    animation: vertSweepReverse 2.4s ease-in-out infinite;
-  }
+  .arrow-line-vert-up::before { content: ''; position: absolute; top: -5px; left: -4px; border-bottom: 7px solid #8b5cf6; border-left: 5px solid transparent; border-right: 5px solid transparent; }
 
-  .arrow-label-small {
-    font-size: 11px;
-    font-weight: 600;
-    color: #94a3b8;
+  .security-note { background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 650ms ease-out forwards 520ms; }
 
-    opacity: 0;
-    transform: translateY(6px);
-    animation: fadeUp 520ms ease-out forwards 420ms;
+  /* --- Standardized Navigation Bar --- */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: var(--nav-height); padding: 0 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+    z-index: 100; pointer-events: none;
   }
-  .arrow-label-response { color: #a78bfa; }
+  .nav-btn {
+    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; color: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease;
+  }
+  .nav-prev { background-color: #4b5563; }
+  .nav-next { background-color: #2563eb; }
+  .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-  .security-note {
-    background-color: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 8px;
-    padding: 14px 20px;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.12);
-
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeUp 650ms ease-out forwards 520ms;
-  }
-  .security-note i {
-    color: #3b82f6;
-    font-size: 20px;
-  }
-  .security-note-text {
-    font-size: 15px;
-    color: #bfdbfe;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  /* Decorative circles with gentle float */
-  .decorative-element {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.05;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform, opacity;
-    filter: blur(0.2px);
-  }
-  .circle-1 {
-    width: 350px;
-    height: 350px;
-    background-color: var(--green);
-    top: -100px;
-    right: -80px;
-    animation: floatRight 18s ease-in-out infinite;
-  }
-  .circle-2 {
-    width: 250px;
-    height: 250px;
-    background-color: var(--violet);
-    bottom: -80px;
-    left: -60px;
-    animation: floatLeft 20s ease-in-out infinite;
-  }
-
-  /* Enhance existing nav buttons (hover micro-interaction) */
-  .navigation-buttons a {
-    transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
-  }
-  .navigation-buttons a:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.35);
-  }
-
-  /* Keyframes */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-10px) scale(0.995); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes floatRight {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(-14px, 10px) scale(1.03); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-  @keyframes floatLeft {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(14px, -10px) scale(1.03); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
-  @keyframes vertSweep {
-    0%   { top: -40%; opacity: 0.0; }
-    20%  { opacity: 0.85; }
-    50%  { top: 40%;  opacity: 0.95; }
-    80%  { opacity: 0.85; }
-    100% { top: 120%; opacity: 0.0; }
-  }
-  @keyframes vertSweepReverse {
-    0%   { top: 120%; opacity: 0.0; }
-    20%  { opacity: 0.85; }
-    50%  { top: 40%;  opacity: 0.95; }
-    80%  { opacity: 0.85; }
-    100% { top: -40%; opacity: 0.0; }
-  }
-
-  /* Respect user preference for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-    .slide-title, .component-box, .list-item, .communication-section, .security-note { opacity: 1 !important; transform: none !important; }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 <div class="slide-container">
-  <!-- Decorative circles -->
-  <div class="decorative-element circle-1"></div>
-  <div class="decorative-element circle-2"></div>
-
-  <!-- Header -->
   <div class="header">
     <h1 class="slide-title">Architecture Split: <span class="title-highlight">Core vs Host</span></h1>
   </div>
 
-  <!-- Content -->
   <div class="content-wrapper">
     <div class="architecture-container">
-      <!-- HOST -->
       <div class="component-box host-box">
         <div class="component-header">
-          <div class="component-icon host-icon"><i class="fas fa-laptop-code" aria-hidden="true"></i></div>
-          <div>
-            <h2 class="component-title">Host Side</h2>
-            <span class="component-subtitle host-subtitle">Less Trusted</span>
-          </div>
+          <div class="component-icon host-icon"><i class="fas fa-laptop-code"></i></div>
+          <div><h2 class="component-title">Host Side</h2><span class="component-subtitle host-subtitle">Less Trusted</span></div>
         </div>
-
         <div class="component-list">
-          <div class="list-item host-item"><i class="fas fa-circle" aria-hidden="true"></i><span>Runs outside the chip boundary</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle" aria-hidden="true"></i><span>Requests services via protocols</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle" aria-hidden="true"></i><span>Handles application logic</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle" aria-hidden="true"></i><span>Capability-based access controls</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Runs outside the chip boundary</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Requests services via protocols</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Handles application logic</span></div>
         </div>
       </div>
 
-      <!-- COMM / BOUNDARY -->
       <div class="communication-section">
         <div class="boundary-box">
-          <div class="boundary-icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
+          <div class="boundary-icon"><i class="fas fa-shield-halved"></i></div>
           <h3 class="boundary-title">Security Boundary</h3>
-          <p class="boundary-text">Strict interface contracts enforce separation</p>
+          <p class="boundary-text">Strict interface contracts</p>
         </div>
-
-        <div class="arrow-container">
-          <div class="arrow-vertical">
-            <span class="arrow-label-small">Request</span>
-            <div class="arrow-line-vert"></div>
-          </div>
-          <div class="arrow-vertical">
-            <div class="arrow-line-vert-up"></div>
-            <span class="arrow-label-small arrow-label-response">Results</span>
-          </div>
+        <div class="flex gap-4 mt-2">
+            <div class="flex flex-col items-center"><span class="text-[10px] font-bold text-slate-500">REQ</span><div class="arrow-line-vert"></div></div>
+            <div class="flex flex-col items-center"><div class="arrow-line-vert-up"></div><span class="text-[10px] font-bold text-violet-400">RES</span></div>
         </div>
       </div>
 
-      <!-- CORE -->
       <div class="component-box core-box">
         <div class="component-header">
-          <div class="component-icon core-icon"><i class="fas fa-microchip" aria-hidden="true"></i></div>
-          <div>
-            <h2 class="component-title">Core Side</h2>
-            <span class="component-subtitle core-subtitle">Highly Trusted</span>
-          </div>
+          <div class="component-icon core-icon"><i class="fas fa-microchip"></i></div>
+          <div><h2 class="component-title">Core Side</h2><span class="component-subtitle core-subtitle">Highly Trusted</span></div>
         </div>
-
         <div class="component-list">
-          <div class="list-item core-item"><i class="fas fa-check" aria-hidden="true"></i><span>Inside the chip, minimal TCB</span></div>
-          <div class="list-item core-item"><i class="fas fa-check" aria-hidden="true"></i><span>Executes security-critical logic</span></div>
-          <div class="list-item core-item"><i class="fas fa-check" aria-hidden="true"></i><span>Secrets remain protected inside</span></div>
-          <div class="list-item core-item"><i class="fas fa-check" aria-hidden="true"></i><span>Policy-based enforcement</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Inside the chip, minimal TCB</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Security-critical logic</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Secrets remain protected</span></div>
         </div>
       </div>
     </div>
 
     <div class="security-note">
-      <i class="fas fa-info-circle" aria-hidden="true"></i>
-      <p class="security-note-text">Clear security boundary simplifies threat modeling and validation — only attested results are exposed</p>
+      <i class="fas fa-info-circle"></i>
+      <p class="security-note-text">Separation simplifies threat modeling — only attested results are exposed to the host.</p>
     </div>
+  </div>
 
-    <!-- Bottom navigation (existing buttons) -->
-    <div class="navigation-buttons mt-10 flex justify-between w-full">
-      <a href="page_6.html"
-         class="inline-block px-8 py-3 rounded-full bg-gray-600 hover:bg-gray-700 text-white text-lg font-semibold shadow-lg transition">
-        ← Previous Slide
-      </a>
-
-      <a href="page_8.html"
-         class="inline-block px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold shadow-lg transition">
-        Next Slide →
-      </a>
-    </div>
+  <div class="bottom-nav">
+    <a class="nav-btn nav-prev" href="page_6.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+    <a class="nav-btn nav-next" href="page_8.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
   </div>
 </div>
 </body>

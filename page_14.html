@@ -16,8 +16,8 @@
         --green:#10b981;
         --purple:#8b5cf6;
         --text:#ffffff;
-        --bottom-nav-height: 68px;
-        --bottom-padding-extra: 20px;
+        /* Master Standard Nav Height */
+        --nav-height: 80px;
     }
 
     html, body { height: 100%; overflow: hidden; }
@@ -34,17 +34,14 @@
         70% { transform: scale(1.1); }
         100% { opacity: 1; transform: scale(1); }
     }
-
     @keyframes slideUpFade {
         from { opacity: 0; transform: translateY(40px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes expandWidth {
         from { width: 0; opacity: 0; }
         to { width: 60px; opacity: 1; }
     }
-
     @keyframes float {
         0%, 100% { transform: translate(0, 0) scale(1); }
         50% { transform: translate(-20px, 20px) scale(1.05); }
@@ -62,7 +59,9 @@
         flex:1; display:flex;
         flex-direction:column; align-items:center;
         justify-content:center; gap:28px;
-        padding:60px; z-index:2;
+        /* Reserved space for fixed bottom nav */
+        padding: 60px 60px var(--nav-height) 60px; 
+        z-index:2;
     }
 
     .icon-container{
@@ -73,7 +72,6 @@
         display:flex; align-items:center; justify-content:center;
         animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     }
-    
     .icon-container i{ font-size:50px; color:#60a5fa; }
 
     .thank-you-text{
@@ -88,14 +86,12 @@
         display:flex; align-items:center;
         gap:18px; margin-top:8px;
     }
-
     .divider-line{
         height:3px; background-color:rgba(59,130,246,0.5);
         border-radius:2px;
         animation: expandWidth 0.8s ease-out both;
         animation-delay: 1s;
     }
-
     .questions-text{
         font-size:34px; font-weight:700;
         color:#cbd5e1; text-align:center;
@@ -110,7 +106,7 @@
         animation-delay: 1.2s;
     }
 
-    /* Decorative Background with Floating Animation */
+    /* Decorative Background */
     .decorative-element{
         position:absolute; border-radius:50%;
         opacity:0.04; z-index:0; pointer-events:none;
@@ -125,7 +121,7 @@
     }
 
     .accent-dots{
-        position:absolute; bottom:calc(var(--bottom-nav-height) + 10px);
+        position:fixed; bottom: 30px;
         left:50%; transform:translateX(-50%);
         display:flex; gap:8px; z-index:3;
         animation: slideUpFade 0.5s ease-out both;
@@ -134,27 +130,28 @@
     .dot{ width:9px; height:9px; background-color:rgba(59,130,246,0.4); border-radius:50%; }
     .dot.active{ width:28px; border-radius:4px; background-color:rgba(59,130,246,0.8); }
 
-    .bottom-nav{
-        position:absolute; left:0; right:0; bottom:0;
-        height:var(--bottom-nav-height); padding:12px 24px;
-        background:linear-gradient(180deg, transparent, rgba(15,23,42,0.95));
-        display:flex; align-items:center; z-index:3;
+    /* --- Standardized Navigation Fix --- */
+    .bottom-nav {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        height: var(--nav-height); padding: 0 60px;
+        display: flex; justify-content: flex-start; align-items: center;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.95) 100%);
+        z-index: 100; pointer-events: none;
     }
 
-    .nav-btn{
-        display:inline-flex; align-items:center; gap:10px;
-        padding:10px 18px; font-size:15px; font-weight:700;
-        border-radius:9999px; background-color:#4b5563;
-        color:#ffffff; text-decoration:none;
-        transition: 0.3s transform;
+    .nav-btn {
+        pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 22px; border-radius: 9999px; text-decoration: none;
+        font-weight: 700; font-size: 16px; color: #fff;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.35); transition: all 0.2s ease;
+        background-color:#4b5563;
     }
-    .nav-btn:hover{ background-color:#374151; transform: scale(1.05); }
+    .nav-btn:hover { transform: translateY(-2px); background-color:#374151; }
 </style>
 </head>
 
 <body>
 <div class="slide-container">
-
     <div class="decorative-element circle-1"></div>
     <div class="decorative-element circle-2"></div>
     <div class="decorative-element circle-3"></div>
@@ -184,11 +181,9 @@
         <div class="dot active"></div>
     </div>
 
-    <div class="bottom-nav">
-        <a class="nav-btn nav-prev" href="page_13.html">
-            <i class="fas fa-arrow-left"></i> Previous Slide
-        </a>
-    </div>
+  <div class="bottom-nav">
+    <a class="nav-btn nav-prev" href="page_13.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+  </div>
 </div>
 </body>
 </html>
