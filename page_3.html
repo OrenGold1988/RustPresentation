@@ -15,373 +15,204 @@
         --green:#10b981;
         --text:#ffffff;
         --muted:#cbd5e1;
-
-        /* Height of the bottom nav (used to reserve space) */
-        --bottom-nav-height: 84px; /* includes its padding/visual height */
-        --bottom-padding-extra: 8px; /* small breathing room above nav */
+        /* Fixed Nav Height */
+        --nav-height: 80px;
     }
 
     html, body { height: 100%; }
     body {
-        margin: 0;
-        padding: 0;
+        margin: 0; padding: 0;
         font-family: 'Inter', sans-serif;
-        overflow: hidden;              /* no page scrollbar */
+        overflow: hidden;
         background-color: var(--bg);
         color: var(--text);
     }
 
     .slide-container {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
+        width: 100vw; height: 100vh;
+        display: flex; flex-direction: column;
+        position: relative; overflow: hidden;
         isolation: isolate;
     }
 
     .header {
         padding: 40px 80px 25px 80px;
         border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-        position: relative;
-        z-index: 2;
+        position: relative; z-index: 2;
         flex-shrink: 0;
-        background: transparent;
     }
 
     .slide-title {
-        font-size: 44px;
-        font-weight: 800;
-        color: var(--text);
-        margin: 0;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-        opacity: 0;
-        transform: translateY(-8px);
+        font-size: 44px; font-weight: 800;
+        line-height: 1.15; letter-spacing: -0.02em;
+        opacity: 0; transform: translateY(-8px);
         animation: fadeInDown 700ms ease-out forwards 120ms;
-        text-wrap: balance;
     }
     .title-highlight { color: var(--blue); }
 
-    /* Reserve space at bottom so content never sits under the nav */
     .content-wrapper {
-        flex: 1 1 auto;
-        padding: 35px 80px calc(var(--bottom-nav-height) + var(--bottom-padding-extra));
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        position: relative;
-        z-index: 2;
-
-        /* No internal scrollbars; content should fit in design */
-        overflow: hidden;
-        box-sizing: border-box;
+        flex: 1;
+        /* Padding bottom set to nav-height + buffer */
+        padding: 35px 80px calc(var(--nav-height) + 20px) 80px;
+        display: flex; flex-direction: column;
+        justify-content: center;
+        gap: 30px; position: relative; z-index: 2;
     }
 
     .features-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: grid; grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
     .feature-card {
-        background-color: rgba10px;
-        padding: 24px;
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
-
-        /* animation entrance */
-        opacity: 0;
-        transform: translateY(12px);
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 24px; display: flex;
+        gap: 18px; align-items: flex-start;
+        opacity: 0; transform: translateY(12px);
         box-shadow: 0 10px 26px rgba(0,0,0,0.18);
     }
-    /* Stagger each card */
+
     .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 180ms; }
     .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 260ms; }
     .feature-card:nth-child(3) { animation: fadeUp 600ms ease-out forwards 340ms; }
     .feature-card:nth-child(4) { animation: fadeUp 600ms ease-out forwards 420ms; }
 
     .feature-icon-box {
-        width: 56px;
-        height: 56px;
+        width: 56px; height: 56px;
         background-color: rgba(59, 130, 246, 0.2);
         border: 2px solid rgba(59, 130, 246, 0.5);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+        border-radius: 10px; display: flex;
+        align-items: center; justify-content: center; flex-shrink: 0;
     }
     .feature-icon-box i { color: var(--blue); font-size: 26px; }
 
-    .feature-content { flex: 1; }
-    .feature-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0 0 8px 0;
-    }
-    .feature-description {
-        font-size: 15px;
-        color: var(--muted);
-        line-height: 1.4;
-        margin: 0;
-        font-weight: 400;
-    }
+    .feature-title { font-size: 20px; font-weight: 700; margin: 0 0 8px 0; }
+    .feature-description { font-size: 15px; color: var(--muted); line-height: 1.4; margin: 0; }
 
     .protections-section {
         background-color: rgba(16, 185, 129, 0.08);
         border: 2px solid rgba(16, 185, 129, 0.3);
-        border-radius: 10px;
-        padding: 22px 28px;
-
-        /* section entrance */
-        opacity: 0;
-        transform: translateY(10px);
+        border-radius: 10px; padding: 22px 28px;
+        opacity: 0; transform: translateY(10px);
         animation: fadeUp 650ms ease-out forwards 520ms;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.04);
     }
-    .protections-header {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 16px;
-    }
+
+    .protections-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
     .protections-icon {
-        width: 44px;
-        height: 44px;
-        background-color: rgba(16, 185, 129, 0.2);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+        width: 44px; height: 44px; background-color: rgba(16, 185, 129, 0.2);
+        border-radius: 8px; display: flex; align-items: center; justify-content: center;
     }
     .protections-icon i { color: var(--green); font-size: 22px; }
-    .protections-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0;
-    }
+    .protections-title { font-size: 20px; font-weight: 700; margin: 0; }
 
-    .protections-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-    }
+    .protections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .protection-item {
         background-color: rgba(16, 185, 129, 0.12);
         border: 1px solid rgba(16, 185, 129, 0.35);
-        border-radius: 6px;
-        padding: 10px 14px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transform: translateY(8px);
-        opacity: 0;
+        border-radius: 6px; padding: 10px 14px;
+        display: flex; align-items: center; gap: 10px;
+        transform: translateY(8px); opacity: 0;
     }
-    /* subtle stagger for items inside protections */
+
     .protection-item:nth-child(1) { animation: fadeUp 500ms ease-out forwards 620ms; }
     .protection-item:nth-child(2) { animation: fadeUp 500ms ease-out forwards 680ms; }
     .protection-item:nth-child(3) { animation: fadeUp 500ms ease-out forwards 740ms; }
     .protection-item:nth-child(4) { animation: fadeUp 500ms ease-out forwards 800ms; }
 
-    .protection-item i { color: var(--green); font-size: 14px; }
-    .protection-text {
-        font-size: 14px;
-        color: #e2e8f0;
-        font-weight: 500;
-        margin: 0;
-    }
+    .protection-text { font-size: 14px; color: #e2e8f0; font-weight: 500; margin: 0; }
 
-    /* Decorative circles — gentle float */
-    .decorative-element {
-        position: absolute;
-        border-radius: 50%;
-        opacity: 0.05;
-        z-index: 0;
-        pointer-events: none;
-        will-change: transform, opacity;
-        filter: blur(0.2px);
-    }
-    .circle-1 {
-        width: 350px;
-        height: 350px;
-        background-color: var(--blue);
-        top: -100px;
-        right: -80px;
-        animation: floatRight 18s ease-in-out infinite;
-    }
-    .circle-2 {
-        width: 250px;
-        height: 250px;
-        background-color: var(--green);
-        bottom: -80px;
-        left: -60px;
-        animation: floatLeft 20s ease-in-out infinite;
-    }
-
-    /* Bottom navigation: fixed, previous on left, next on right */
+    /* Standardized Navigation */
     .bottom-nav {
-        position: absolute;
-        left: 0; right: 0; bottom: 0;
-        height: var(--bottom-nav-height);  /* for layout calculations */
-        padding: 16px 24px 26px;
-        display: flex;
-        justify-content: space-between;
+        position: fixed; bottom: 0; left: 0; right: 0;
+        height: var(--nav-height);
+        padding: 0 60px;
+        display: flex; justify-content: space-between;
         align-items: center;
-        z-index: 3;
-        background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.6) 50%, rgba(15,23,42,0.95) 100%);
-        box-sizing: border-box;
+        background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+        z-index: 100; pointer-events: none;
     }
+
     .nav-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 11px 20px;
-        border-radius: 999px;
-        color: white;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 16px;
+        pointer-events: auto;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 22px; border-radius: 999px;
+        color: white; text-decoration: none; font-weight: 700;
+        font-size: 16px; /* Consistency across all slides */
         box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-        transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
-        white-space: nowrap;
+        transition: all 180ms ease;
     }
     .nav-prev { background-color: #4b5563; }
-    .nav-prev:hover { background-color: #374151; transform: translateY(-1px); filter: brightness(1.04); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
     .nav-next { background-color: #2563eb; }
-    .nav-next:hover { background-color: #1d4ed8; transform: translateY(-1px); filter: brightness(1.04); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
+    .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
     /* Keyframes */
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-10px) scale(0.995); }
-        to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes floatRight {
-        0%   { transform: translate(0, 0) scale(1); }
-        50%  { transform: translate(-14px, 10px) scale(1.03); }
-        100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes floatLeft {
-        0%   { transform: translate(0, 0) scale(1); }
-        50%  { transform: translate(14px, -10px) scale(1.03); }
-        100% { transform: translate(0, 0) scale(1); }
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-        * { animation: none !important; transition: none !important; }
-        .feature-card, .protections-section, .protection-item, .slide-title { opacity: 1 !important; transform: none !important; }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 <div class="slide-container">
-    <!-- Decorative elements -->
-    <div class="decorative-element circle-1"></div>
-    <div class="decorative-element circle-2"></div>
-
-    <!-- Header -->
     <div class="header">
-        <!-- Break after “OpenTitan” -->
         <h1 class="slide-title">
             <span class="title-highlight">OpenTitan</span><br>
             Chip Purpose and Protections
         </h1>
     </div>
 
-    <!-- Content -->
     <div class="content-wrapper">
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon-box">
-                    <i class="fas fa-key" aria-hidden="true"></i>
-                </div>
+                <div class="feature-icon-box"><i class="fas fa-key"></i></div>
                 <div class="feature-content">
                     <h3 class="feature-title">Secure Key Storage</h3>
                     <p class="feature-description">Cryptographic keys sealed with access control, isolated from host memory</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="feature-icon-box">
-                    <i class="fas fa-check-circle" aria-hidden="true"></i>
-                </div>
+                <div class="feature-icon-box"><i class="fas fa-check-circle"></i></div>
                 <div class="feature-content">
                     <h3 class="feature-title">Secure Boot Enforcement</h3>
-                    <p class="feature-description">Measured boot and verified boot to ensure firmware integrity and authenticity</p>
+                    <p class="feature-description">Measured boot and verified boot to ensure firmware integrity</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="feature-icon-box">
-                    <i class="fas fa-microchip" aria-hidden="true"></i>
-                </div>
+                <div class="feature-icon-box"><i class="fas fa-microchip"></i></div>
                 <div class="feature-content">
                     <h3 class="feature-title">Hardware Cryptography</h3>
-                    <p class="feature-description">Accelerated crypto operations (AES, HMAC, ECC) with constant-time implementations</p>
+                    <p class="feature-description">Accelerated operations (AES, HMAC, ECC) with constant-time logic</p>
                 </div>
             </div>
-
             <div class="feature-card">
-                <div class="feature-icon-box">
-                    <i class="fas fa-id-card" aria-hidden="true"></i>
-                </div>
+                <div class="feature-icon-box"><i class="fas fa-id-card"></i></div>
                 <div class="feature-content">
-                    <h3 class="feature-title">Device Identity &amp; Attestation</h3>
-                    <p class="feature-description">Provisioned secrets and certificates for unique device identity and remote attestation</p>
+                    <h3 class="feature-title">Device Identity</h3>
+                    <p class="feature-description">Provisioned secrets for unique device identity and remote attestation</p>
                 </div>
             </div>
         </div>
 
         <div class="protections-section">
             <div class="protections-header">
-                <div class="protections-icon">
-                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                </div>
+                <div class="protections-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3 class="protections-title">Protection Against Threats</h3>
             </div>
-
             <div class="protections-grid">
-                <div class="protection-item">
-                    <i class="fas fa-bug" aria-hidden="true"></i>
-                    <p class="protection-text">Software Attacks</p>
-                </div>
-                <div class="protection-item">
-                    <i class="fas fa-hammer" aria-hidden="true"></i>
-                    <p class="protection-text">Physical Tampering</p>
-                </div>
-                <div class="protection-item">
-                    <i class="fas fa-bolt" aria-hidden="true"></i>
-                    <p class="protection-text">Fault Injection</p>
-                </div>
-                <div class="protection-item">
-                    <i class="fas fa-broadcast-tower" aria-hidden="true"></i>
-                    <p class="protection-text">Side-Channel Attacks</p>
-                </div>
+                <div class="protection-item"><i class="fas fa-bug"></i><p class="protection-text">Software Attacks</p></div>
+                <div class="protection-item"><i class="fas fa-hammer"></i><p class="protection-text">Physical Tampering</p></div>
+                <div class="protection-item"><i class="fas fa-bolt"></i><p class="protection-text">Fault Injection</p></div>
+                <div class="protection-item"><i class="fas fa-broadcast-tower"></i><p class="protection-text">Side-Channel</p></div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom-fixed navigation -->
     <div class="bottom-nav">
         <a href="page_2.html" class="nav-btn nav-prev">
-            <i class="fas fa-arrow-left" aria-hidden="true"></i>
-            <span>Previous Slide</span>
+            <i class="fas fa-arrow-left"></i><span>Previous Slide</span>
         </a>
-
         <a href="page_4.html" class="nav-btn nav-next">
-            <span>Next Slide</span>
-            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            <span>Next Slide</span><i class="fas fa-arrow-right"></i>
         </a>
     </div>
 </div>
