@@ -17,8 +17,8 @@
     --purple:#8b5cf6;
     --text:#ffffff;
     --muted:#cbd5e1;
-    --bottom-nav-height: 68px;
-    --bottom-padding-extra: 18px;
+    /* Master Standard Nav Height */
+    --nav-height: 80px;
   }
 
   html, body { height: 100%; overflow: hidden; }
@@ -34,22 +34,18 @@
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes fadeInRight {
     from { opacity: 0; transform: translateX(-30px); }
     to { opacity: 1; transform: translateX(0); }
   }
-
   @keyframes fadeInLeft {
     from { opacity: 0; transform: translateX(30px); }
     to { opacity: 1; transform: translateX(0); }
   }
-
   @keyframes scaleIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
   }
-
   @keyframes pulseSlow {
     0%, 100% { transform: scale(1); opacity: 0.04; }
     50% { transform: scale(1.1); opacity: 0.07; }
@@ -74,38 +70,36 @@
     font-size:42px; font-weight:800; text-align:center;
     line-height:1.15; letter-spacing:-0.02em;
   }
-
   .title-highlight{ color:#60a5fa; }
 
   .content-wrapper{
     flex:1;
-    padding:36px 70px calc(var(--bottom-nav-height) + var(--bottom-padding-extra));
+    /* Master buffer for fixed bottom nav */
+    padding:30px 70px calc(var(--nav-height) + 20px) 70px !important;
     display:flex; flex-direction:column; gap:18px;
     position:relative; z-index:2;
   }
 
   .takeaways-grid{
     display:grid; grid-template-columns:repeat(2,1fr);
-    gap:16px; flex:1;
+    gap:14px; flex:1;
   }
 
   .takeaway-card{
-    border-radius:10px; padding:20px 24px;
+    border-radius:10px; padding:18px 24px;
     display:flex; gap:16px; align-items:center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Hover effect for interactivity */
   .takeaway-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     filter: brightness(1.1);
   }
 
-  /* Entrance Delays for Grid Items */
+  /* Staggered Entrance */
   .takeaway-card:nth-child(odd) { animation: fadeInRight 0.6s ease-out both; }
   .takeaway-card:nth-child(even) { animation: fadeInLeft 0.6s ease-out both; }
-  
   .takeaway-card:nth-child(1), .takeaway-card:nth-child(2) { animation-delay: 0.2s; }
   .takeaway-card:nth-child(3), .takeaway-card:nth-child(4) { animation-delay: 0.4s; }
   .takeaway-card:nth-child(5), .takeaway-card:nth-child(6) { animation-delay: 0.6s; }
@@ -118,21 +112,14 @@
   .card-rose{  background-color:rgba(244,63,94,0.12);  border:2px solid rgba(244,63,94,0.4); }
 
   .takeaway-icon-box{
-    width:56px; height:56px; border-radius:10px;
+    width:52px; height:52px; border-radius:10px;
     display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
-
-  .icon-blue{ background-color:rgba(59,130,246,0.25); border:2px solid rgba(59,130,246,0.6); }
   .icon-blue i{ font-size:24px; color:#60a5fa; }
-  .icon-green{ background-color:rgba(16,185,129,0.25); border:2px solid rgba(16,185,129,0.6); }
   .icon-green i{ font-size:24px; color:#34d399; }
-  .icon-purple{ background-color:rgba(139,92,246,0.25); border:2px solid rgba(139,92,246,0.6); }
   .icon-purple i{ font-size:24px; color:#a78bfa; }
-  .icon-cyan{ background-color:rgba(6,182,212,0.25); border:2px solid rgba(6,182,212,0.6); }
   .icon-cyan i{ font-size:24px; color:#22d3ee; }
-  .icon-amber{ background-color:rgba(245,158,11,0.25); border:2px solid rgba(245,158,11,0.6); }
   .icon-amber i{ font-size:24px; color:#fbbf24; }
-  .icon-rose{ background-color:rgba(244,63,94,0.25); border:2px solid rgba(244,63,94,0.6); }
   .icon-rose i{ font-size:24px; color:#fb7185; }
 
   .takeaway-title{ font-size:17px; font-weight:700; color:#fff; }
@@ -141,53 +128,49 @@
   .conclusion-banner{
     background-color:rgba(59,130,246,0.15);
     border:2px solid rgba(59,130,246,0.5);
-    border-radius:10px; padding:16px 26px;
+    border-radius:10px; padding:14px 26px;
     display:flex; align-items:center; gap:14px; justify-content:center;
     animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     animation-delay: 1s;
   }
-
   .banner-icon{
-    width:44px; height:44px; background-color:rgba(59,130,246,0.3);
+    width:40px; height:40px; background-color:rgba(59,130,246,0.3);
     border-radius:8px; display:flex; align-items:center; justify-content:center;
   }
-  .banner-text{ font-size:18px; font-weight:700; text-align:center; }
-  .banner-highlight{ color:#60a5fa; }
+  .banner-text{ font-size:17px; font-weight:700; text-align:center; }
 
-  /* Decorative Animated Background */
+  /* --- Master Standard Navigation --- */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: var(--nav-height); padding: 0 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.95) 100%);
+    z-index: 100; pointer-events: none;
+  }
+
+  .nav-btn {
+    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; color: #fff; /* Standardized Font Size */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35); transition: all 0.2s ease;
+  }
+  .nav-prev{ background-color:#4b5563; }
+  .nav-next{ background-color:#2563eb; }
+  .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+  /* Decorative Orbs */
   .decorative-element{
     position:absolute; border-radius:50%; opacity:0.04; 
-    pointer-events:none; z-index:0;
-    animation: pulseSlow 8s infinite ease-in-out;
+    pointer-events:none; z-index:0; animation: pulseSlow 8s infinite ease-in-out;
   }
   .circle-1{ width:380px; height:380px; background-color:#3b82f6; top:-120px; right:-100px; }
   .circle-2{ width:280px; height:280px; background-color:#10b981; bottom:-100px; left:-80px; animation-delay: -2s;}
   .circle-3{ width:180px; height:180px; background-color:#8b5cf6; top:50%; left:50%; transform:translate(-50%,-50%); animation-delay: -4s;}
-
-  .bottom-nav{
-    position:absolute; left:0; right:0; bottom:0;
-    height:var(--bottom-nav-height); padding:12px 24px;
-    display:flex; justify-content:space-between; align-items:center;
-    background: linear-gradient(180deg,transparent 0%, rgba(15,23,42,0.95) 100%);
-    z-index:3;
-  }
-
-  .nav-btn{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:10px 18px; border-radius:9999px;
-    text-decoration:none; font-weight:700; font-size:15px; color:#fff;
-    box-shadow:0 8px 24px rgba(0,0,0,0.35); transition: 0.2s;
-  }
-  .nav-prev{ background-color:#4b5563; }
-  .nav-next{ background-color:#2563eb; }
-  .nav-btn:hover { transform: scale(1.05); }
-
 </style>
 </head>
 
 <body>
 <div class="slide-container">
-
   <div class="decorative-element circle-1"></div>
   <div class="decorative-element circle-2"></div>
   <div class="decorative-element circle-3"></div>
@@ -208,7 +191,6 @@
           <p class="takeaway-description">OpenTitan anchors trust in hardware with transparent, verifiable design.</p>
         </div>
       </div>
-
       <div class="takeaway-card card-green">
         <div class="takeaway-icon-box icon-green"><i class="fas fa-code-branch"></i></div>
         <div class="takeaway-content">
@@ -216,7 +198,6 @@
           <p class="takeaway-description">Transparency increases auditability and builds long-term confidence.</p>
         </div>
       </div>
-
       <div class="takeaway-card card-purple">
         <div class="takeaway-icon-box icon-purple"><i class="fas fa-project-diagram"></i></div>
         <div class="takeaway-content">
@@ -224,7 +205,6 @@
           <p class="takeaway-description">Strict boundaries enforce separation between core and host.</p>
         </div>
       </div>
-
       <div class="takeaway-card card-cyan">
         <div class="takeaway-icon-box icon-cyan"><i class="fas fa-code"></i></div>
         <div class="takeaway-content">
@@ -232,7 +212,6 @@
           <p class="takeaway-description">C and assembly ensure determinism and low-level hardware control.</p>
         </div>
       </div>
-
       <div class="takeaway-card card-amber">
         <div class="takeaway-icon-box icon-amber"><i class="fab fa-rust"></i></div>
         <div class="takeaway-content">
@@ -240,7 +219,6 @@
           <p class="takeaway-description">Memory safety and strong types reduce risks from malformed inputs.</p>
         </div>
       </div>
-
       <div class="takeaway-card card-rose">
         <div class="takeaway-icon-box icon-rose"><i class="fas fa-shield-alt"></i></div>
         <div class="takeaway-content">
@@ -257,10 +235,9 @@
   </div>
 
   <div class="bottom-nav">
-    <a class="nav-btn nav-prev" href="page_1.html"><i class="fas fa-arrow-left"></i> Previous Slide</a>
-    <a class="nav-btn nav-next" href="page_3.html">Next Slide <i class="fas fa-arrow-right"></i></a>
+    <a class="nav-btn nav-prev" href="page_1.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+    <a class="nav-btn nav-next" href="page_3.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
   </div>
-
 </div>
 </body>
 </html>
