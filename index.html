@@ -53,39 +53,46 @@
     .content-wrapper {
         flex: 1;
         display: flex; flex-direction: column; justify-content: center; align-items: center;
-        padding: 60px 80px calc(var(--nav-height) + 20px) 80px !important;
+        padding: 40px 60px calc(var(--nav-height) + 10px) 60px !important;
         position: relative; z-index: 2;
     }
 
     .main-title {
-        font-size: clamp(36px, 5.5vw, 60px); font-weight: 800;
+        font-size: clamp(36px, 5.5vw, 54px); font-weight: 800;
         text-align: center; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em;
         opacity: 0; animation: fadeUp 700ms ease-out forwards;
     }
     .title-highlight { color: var(--accent); }
-    .title-subtext { font-size: 0.7em; color: var(--muted); display: block; margin-top: 10px; }
 
     .subtitle {
         font-size: clamp(16px, 2vw, 22px); color: var(--accent-2);
-        text-align: center; font-weight: 600; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 0.1em;
+        text-align: center; font-weight: 600; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 0.1em;
         opacity: 0; animation: fadeUp 700ms ease-out forwards 120ms;
     }
 
-    .topics-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; max-width: 1100px; }
+    .topics-container { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 16px; 
+        max-width: 1100px; 
+    }
     .topic-item {
         background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.28);
-        border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; gap: 14px;
+        border-radius: 12px; padding: 16px 22px; display: flex; align-items: center; gap: 16px;
         box-shadow: 0 6px 22px rgba(0,0,0,0.25); opacity: 0;
     }
-    .topic-item i { color: var(--accent); font-size: 20px; }
-    .topic-text { font-weight: 500; }
+    .topic-item i { color: var(--accent); font-size: 22px; flex-shrink: 0; }
+    .topic-text-wrapper { display: flex; flex-direction: column; }
+    .topic-text { font-weight: 700; font-size: 16px; }
+    .topic-sub { font-size: 12px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
 
     /* Stagger topics */
-    .topic-item:nth-child(1) { animation: fadeUp 650ms ease-out forwards 220ms; }
-    .topic-item:nth-child(2) { animation: fadeUp 650ms ease-out forwards 320ms; }
-    .topic-item:nth-child(3) { animation: fadeUp 650ms ease-out forwards 420ms; }
-    .topic-item:nth-child(4) { animation: fadeUp 650ms ease-out forwards 520ms; }
-    .topic-item:nth-child(5) { animation: fadeUp 650ms ease-out forwards 620ms; }
+    .topic-item:nth-child(1) { animation: fadeUp 650ms ease-out forwards 200ms; }
+    .topic-item:nth-child(2) { animation: fadeUp 650ms ease-out forwards 300ms; }
+    .topic-item:nth-child(3) { animation: fadeUp 650ms ease-out forwards 400ms; }
+    .topic-item:nth-child(4) { animation: fadeUp 650ms ease-out forwards 500ms; }
+    .topic-item:nth-child(5) { animation: fadeUp 650ms ease-out forwards 600ms; }
+    .topic-item:nth-child(6) { animation: fadeUp 650ms ease-out forwards 700ms; }
 
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
@@ -119,17 +126,54 @@
 
     <div class="content-wrapper">
         <h1 class="main-title">
-          <span class="title-highlight">OpenTitan: Nuvoton & Rust Ecosystem</span><br>
+          <span class="title-highlight">OpenTitan: Nuvoton & Rust Ecosystem</span>
         </h1>
 
         <p class="subtitle">Hardware Transparency meets Memory Safety</p>
 
         <div class="topics-container">
-            <div class="topic-item"><i class="fas fa-industry"></i><p class="topic-text">Nuvoton Partnership</p></div>
-            <div class="topic-item"><i class="fab fa-rust"></i><p class="topic-text">Rust & TockOS Community</p></div>
-            <div class="topic-item"><i class="fas fa-layer-group"></i><p class="topic-text">Core vs Host Split</p></div>
-            <div class="topic-item"><i class="fas fa-shield-virus"></i><p class="topic-text">Memory Safety at Scale</p></div>
-            <div class="topic-item"><i class="fas fa-lightbulb"></i><p class="topic-text">Challenges & Solutions</p></div>
+            <div class="topic-item">
+                <i class="fas fa-industry"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">Nuvoton Partnership</span>
+                </div>
+            </div>
+
+            <div class="topic-item">
+                <i class="fab fa-rust"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">Rust Community</span>
+                </div>
+            </div>
+
+            <div class="topic-item" style="grid-column: span 2;">
+                <i class="fas fa-microchip"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">TockOS Implementation</span>
+                    <span class="topic-sub">Open-source OS designed specifically for embedded systems and low-power devices.</span>
+                </div>
+            </div>
+
+            <div class="topic-item">
+                <i class="fas fa-layer-group"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">Core vs Host Split</span>
+                </div>
+            </div>
+
+            <div class="topic-item">
+                <i class="fas fa-shield-virus"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">Memory Safety at Scale</span>
+                </div>
+            </div>
+
+            <div class="topic-item" style="grid-column: span 2;">
+                <i class="fas fa-lightbulb"></i>
+                <div class="topic-text-wrapper">
+                    <span class="topic-text">Challenges & Solutions</span>
+                </div>
+            </div>
         </div>
     </div>
 
