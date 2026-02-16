@@ -14,7 +14,6 @@
         --accent-2:#8b5cf6;
         --muted:#94a3b8;
         --text:#ffffff;
-        /* Master Standard Nav Height */
         --nav-height: 80px;
     }
     html, body { height: 100%; overflow: hidden; }
@@ -51,10 +50,11 @@
 
     .content-wrapper {
         flex: 1;
-        /* Master buffer for fixed bottom nav */
         padding: 50px 80px calc(var(--nav-height) + 20px) 80px !important;
-        display: flex; flex-direction: column;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: 1fr 280px; /* Split for text and logos */
+        gap: 40px;
+        align-items: center;
         position: relative; z-index: 2;
     }
 
@@ -63,7 +63,6 @@
         display: flex; align-items: flex-start; gap: 24px;
         opacity: 0; transform: translateY(14px);
     }
-    /* Stagger bullets */
     .bullet-item:nth-child(1) { animation: fadeUp 600ms ease-out forwards 160ms; }
     .bullet-item:nth-child(2) { animation: fadeUp 600ms ease-out forwards 260ms; }
     .bullet-item:nth-child(3) { animation: fadeUp 600ms ease-out forwards 360ms; }
@@ -82,7 +81,28 @@
     .bullet-text { font-size: 22px; color: #e2e8f0; line-height: 1.5; margin: 0; }
     .bullet-strong { font-weight: 700; color: #ffffff; }
 
-    /* Decorative Orbs */
+    /* Logo Sidebar Styling */
+    .logo-sidebar {
+        display: flex; flex-direction: column;
+        gap: 20px; align-items: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        backdrop-filter: blur(8px);
+        opacity: 0; animation: fadeIn 1s ease-out forwards 600ms;
+    }
+    .logo-sidebar img {
+        max-width: 180px; height: auto;
+        filter: brightness(0.9) contrast(1.1);
+        transition: transform 0.3s ease;
+    }
+    .logo-sidebar img:hover { transform: scale(1.05); }
+    .sidebar-label {
+        font-size: 12px; font-weight: 700; color: var(--muted);
+        text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+
     .decorative-element {
         position: absolute; border-radius: 50%; opacity: 0.06;
         z-index: 0; pointer-events: none;
@@ -90,7 +110,6 @@
     .circle-1 { width: 350px; height: 350px; background-color: var(--accent); top: -100px; right: -80px; animation: floatRight 18s ease-in-out infinite; }
     .circle-2 { width: 250px; height: 250px; background-color: var(--accent-2); bottom: -80px; left: -60px; animation: floatLeft 20s ease-in-out infinite; }
     
-    /* --- Standardized Navigation Fix --- */
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
         height: var(--nav-height); padding: 0 60px;
@@ -108,8 +127,8 @@
     .nav-next { background: #2563eb; }
     .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-    /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-14px, 10px); } }
     @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -10px); } }
@@ -159,6 +178,14 @@
                     <p class="bullet-text">Backed by a <span class="bullet-strong">multi-vendor, community-driven project</span></p>
                 </div>
             </div>
+        </div>
+
+        <div class="logo-sidebar">
+            <span class="sidebar-label">Partners</span>
+            <img src="Nuvoton_Technology_logo.svg.jpg" alt="Nuvoton">
+            <img src="pngimg.com - google_PNG19644.jpg" alt="Google">
+            <img src="RISC-V_Community_Member_Logo_color-2048x600-1.avif" alt="RISC-V">
+            <img src="Tsmc.svg.jpg" alt="TSMC">
         </div>
     </div>
 
