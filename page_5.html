@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>Why Is OpenTitan Open Source?</title>
+<title>OpenTitan: The First Successful Open Source Silicon RoT</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
@@ -14,9 +14,9 @@
         --bg:#0f172a;
         --blue:#3b82f6;
         --violet:#8b5cf6;
+        --gold:#f59e0b;
         --text:#ffffff;
         --muted:#e2e8f0;
-        /* Standard Nav Height */
         --nav-height: 80px;
     }
 
@@ -43,50 +43,51 @@
     }
 
     .slide-title {
-        font-size: 48px; font-weight: 800;
-        line-height: 1.15; color: var(--text);
+        font-size: 44px; font-weight: 800;
+        line-height: 1.1; color: var(--text);
         margin: 0; opacity: 0;
         transform: translateY(-8px);
         animation: fadeInDown 700ms ease-out forwards 120ms;
     }
     .title-highlight { color: var(--blue); }
+    .title-badge { 
+        font-size: 16px; background: rgba(245, 158, 11, 0.2); 
+        color: var(--gold); border: 1px solid var(--gold);
+        padding: 4px 12px; border-radius: 999px; vertical-align: middle;
+        margin-left: 15px; text-transform: uppercase; letter-spacing: 1px;
+    }
 
     .content-wrapper {
         flex: 1;
-        /* Standardized bottom buffer for fixed nav */
         padding: 50px 80px calc(var(--nav-height) + 20px) 80px;
         display: flex; flex-direction: column;
         justify-content: center;
         position: relative; z-index: 2;
-        gap: 10px;
     }
 
-    .bullet-list { display: flex; flex-direction: column; gap: 22px; }
+    .bullet-list { display: flex; flex-direction: column; gap: 24px; }
     .bullet-item {
         display: flex; align-items: flex-start; gap: 24px;
         opacity: 0; transform: translateY(12px);
     }
 
-    /* Staggered entrance */
     .bullet-item:nth-child(1) { animation: fadeUp 600ms ease-out forwards 200ms; }
     .bullet-item:nth-child(2) { animation: fadeUp 600ms ease-out forwards 300ms; }
     .bullet-item:nth-child(3) { animation: fadeUp 600ms ease-out forwards 400ms; }
     .bullet-item:nth-child(4) { animation: fadeUp 600ms ease-out forwards 500ms; }
-    .bullet-item:nth-child(5) { animation: fadeUp 600ms ease-out forwards 600ms; }
 
     .bullet-icon {
-        width: 48px; height: 48px;
-        background-color: rgba(59, 130, 246, 0.15);
-        border: 2px solid rgba(59, 130, 246, 0.4);
-        border-radius: 8px; display: flex;
+        width: 52px; height: 52px;
+        background-color: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        border-radius: 12px; display: flex;
         align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .bullet-icon i { color: var(--blue); font-size: 20px; }
+    .bullet-icon i { color: var(--blue); font-size: 22px; }
 
-    .bullet-text { font-size: 24px; color: var(--muted); line-height: 1.5; margin: 0; }
+    .bullet-text { font-size: 26px; color: var(--muted); line-height: 1.4; margin: 0; }
     .bullet-strong { font-weight: 700; color: var(--text); }
 
-    /* Standardized Navigation Fix */
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
         height: var(--nav-height); padding: 0 60px;
@@ -96,8 +97,7 @@
     }
 
     .nav-btn {
-        pointer-events: auto;
-        display: inline-flex; align-items: center; gap: 10px;
+        pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
         padding: 10px 22px; border-radius: 999px;
         font-weight: 700; font-size: 16px; color: #ffffff;
         text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
@@ -107,55 +107,38 @@
     .nav-next { background-color: var(--blue); }
     .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-    /* Decorative circles */
-    .decorative-element {
-        position: absolute; border-radius: 50%;
-        opacity: 0.05; z-index: 0; pointer-events: none;
-        animation: floatRight 18s ease-in-out infinite;
-    }
-    .circle-1 { width: 350px; height: 350px; background-color: var(--blue); top: -100px; right: -80px; }
-    .circle-2 { width: 250px; height: 250px; background-color: var(--violet); bottom: -80px; left: -60px; animation-name: floatLeft; }
-
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-14px, 10px); } }
-    @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -10px); } }
 </style>
 </head>
 
 <body>
 <div class="slide-container">
-    <div class="decorative-element circle-1"></div>
-    <div class="decorative-element circle-2"></div>
-
     <div class="header">
         <h1 class="slide-title">
-            Why Is<br>
-            <span class="title-highlight">OpenTitan</span> Open Source?
+            <span class="title-highlight">OpenTitan:</span><br>
+            The First Successful Open Source Silicon RoT
+            <span class="title-badge">Proven Milestone</span>
         </h1>
     </div>
 
     <div class="content-wrapper">
         <div class="bullet-list">
             <div class="bullet-item">
-                <div class="bullet-icon"><i class="fas fa-code-branch"></i></div>
-                <p class="bullet-text"><span class="bullet-strong">Full RTL and firmware available</span> — complete transparency in design</p>
+                <div class="bullet-icon"><i class="fas fa-trophy"></i></div>
+                <p class="bullet-text"><span class="bullet-strong">Commercial Grade Achievement</span> — First open project to reach mass-production silicon</p>
             </div>
             <div class="bullet-item">
-                <div class="bullet-icon"><i class="fas fa-unlock"></i></div>
-                <p class="bullet-text"><span class="bullet-strong">Avoids security-by-obscurity</span> — enables independent review</p>
+                <div class="bullet-icon"><i class="fas fa-microchip"></i></div>
+                <p class="bullet-text"><span class="bullet-strong">Complete RTL Sovereignty</span> — Proving that critical security hardware can be transparent</p>
             </div>
             <div class="bullet-item">
-                <div class="bullet-icon"><i class="fas fa-search"></i></div>
-                <p class="bullet-text"><span class="bullet-strong">Transparent supply chain</span> anyone can inspect</p>
+                <div class="bullet-icon"><i class="fas fa-users-cog"></i></div>
+                <p class="bullet-text"><span class="bullet-strong">Multi-Vendor Validation</span> — Successful collaboration between industry leaders (Google, Nuvoton)</p>
             </div>
             <div class="bullet-item">
-                <div class="bullet-icon"><i class="fas fa-check-double"></i></div>
-                <p class="bullet-text">Facilitates <span class="bullet-strong">formal methods and audits</span> by researchers</p>
-            </div>
-            <div class="bullet-item">
-                <div class="bullet-icon"><i class="fas fa-handshake"></i></div>
-                <p class="bullet-text">Builds <span class="bullet-strong">long-term, vendor-neutral trust</span></p>
+                <div class="bullet-icon"><i class="fas fa-shield-check"></i></div>
+                <p class="bullet-text"><span class="bullet-strong">Verified Integrity</span> — Replacing "trust us" with a design that anyone can audit and verify</p>
             </div>
         </div>
     </div>
