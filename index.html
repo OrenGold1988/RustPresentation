@@ -3,18 +3,17 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>OpenTitan: Nuvoton & Rust Ecosystem</title>
+<title>OpenTitan: Embedded Security Anchor</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdn.|fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
     :root{
         --bg-1:#0f172a;
         --accent:#3b82f6;
         --accent-2:#8b5cf6;
-        --muted:#94a3b8;
         --text:#ffffff;
         --nav-height: 80px;
     }
@@ -23,162 +22,103 @@
     body {
         margin: 0; padding: 0;
         font-family: 'Inter', sans-serif;
-        background: radial-gradient(1200px 800px at 80% -10%, #1e293b 0%, var(--bg-1) 60%),
-                    radial-gradient(800px 600px at -10% 110%, #141a2a 0%, var(--bg-1) 60%);
-        animation: bgPulse 14s ease-in-out infinite alternate;
+        background: radial-gradient(circle at 20% 30%, #1e293b 0%, var(--bg-1) 70%);
         color: var(--text);
     }
 
     .slide-container {
         width: 100vw; height: 100vh;
         display: flex; flex-direction: column;
-        position: relative; overflow: hidden;
-        isolation: isolate;
-    }
-
-    .decorative-element {
-        position: absolute; border-radius: 50%; opacity: 0.08;
-        pointer-events: none; z-index: 0;
-    }
-    .circle-1 { width: 420px; height: 420px; background-color: var(--accent); top: -200px; right: -120px; animation: floatRight 18s ease-in-out infinite; }
-    .circle-2 { width: 320px; height: 320px; background-color: var(--accent-2); bottom: -150px; left: -100px; animation: floatLeft 20s ease-in-out infinite; }
-
-    .chip-icon {
-        position: absolute; top: 30px; right: 40px;
-        color: var(--accent); font-size: 48px; z-index: 1;
-        animation: fadeInDown 800ms ease forwards 400ms;
-        opacity: 0.35;
-    }
-
-    .content-wrapper {
-        flex: 1;
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        padding: 40px 60px calc(var(--nav-height) + 10px) 60px !important;
-        position: relative; z-index: 2;
+        justify-content: center;
+        padding: 0 100px;
     }
 
     .main-title {
-        font-size: clamp(36px, 5.5vw, 54px); font-weight: 800;
-        text-align: center; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em;
-        opacity: 0; animation: fadeUp 700ms ease-out forwards;
+        font-size: 64px; font-weight: 800;
+        margin-bottom: 20px;
+        animation: fadeIn 0.8s ease-out;
     }
     .title-highlight { color: var(--accent); }
 
-    .subtitle {
-        font-size: clamp(16px, 2vw, 22px); color: var(--accent-2);
-        text-align: center; font-weight: 600; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 0.1em;
-        opacity: 0; animation: fadeUp 700ms ease-out forwards 120ms;
+    .definition-box {
+        max-width: 800px;
+        font-size: 24px;
+        line-height: 1.6;
+        color: #cbd5e1;
+        margin-bottom: 50px;
+        animation: fadeIn 0.8s ease-out 0.2s both;
     }
 
-    .topics-container { 
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 16px; 
-        max-width: 1100px; 
+    .purpose-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1100px;
+        animation: fadeIn 0.8s ease-out 0.4s both;
     }
-    .topic-item {
-        background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.28);
-        border-radius: 12px; padding: 16px 22px; display: flex; align-items: center; gap: 16px;
-        box-shadow: 0 6px 22px rgba(0,0,0,0.25); opacity: 0;
-    }
-    .topic-item i { color: var(--accent); font-size: 22px; flex-shrink: 0; }
-    .topic-text-wrapper { display: flex; flex-direction: column; }
-    .topic-text { font-weight: 700; font-size: 16px; }
-    .topic-sub { font-size: 12px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
 
-    /* Stagger topics */
-    .topic-item:nth-child(1) { animation: fadeUp 650ms ease-out forwards 200ms; }
-    .topic-item:nth-child(2) { animation: fadeUp 650ms ease-out forwards 300ms; }
-    .topic-item:nth-child(3) { animation: fadeUp 650ms ease-out forwards 400ms; }
-    .topic-item:nth-child(4) { animation: fadeUp 650ms ease-out forwards 500ms; }
-    .topic-item:nth-child(5) { animation: fadeUp 650ms ease-out forwards 600ms; }
-    .topic-item:nth-child(6) { animation: fadeUp 650ms ease-out forwards 700ms; }
+    .purpose-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-left: 4px solid var(--accent);
+        padding: 24px;
+        border-radius: 0 12px 12px 0;
+    }
+
+    .card-title {
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--accent);
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .card-text { font-size: 16px; color: #94a3b8; }
 
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
         height: var(--nav-height); padding: 0 60px;
         display: flex; justify-content: flex-end; align-items: center;
-        background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
-        z-index: 100; pointer-events: none;
+        z-index: 100;
     }
 
     .nav-btn {
-        pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
-        padding: 10px 22px; border-radius: 999px; text-decoration: none;
-        font-weight: 700; font-size: 16px; color: white;
-        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-        box-shadow: 0 10px 28px rgba(37,99,235,0.35); transition: all 180ms ease;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 12px 28px; border-radius: 999px; text-decoration: none;
+        font-weight: 700; color: white;
+        background: var(--accent); transition: 0.3s;
     }
-    .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .nav-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-16px, 10px); } }
-    @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(16px, -12px); } }
-    @keyframes bgPulse { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(6deg); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 <div class="slide-container">
-    <div class="decorative-element circle-1"></div>
-    <div class="decorative-element circle-2"></div>
-    <i class="fas fa-microchip chip-icon" aria-hidden="true"></i>
+    <h1 class="main-title">What is <span class="title-highlight">OpenTitan?</span></h1>
+    
+    <div class="definition-box">
+        OpenTitan is the first <strong>open-source silicon Root of Trust (RoT)</strong> project. 
+        It provides a high-quality, transparent hardware security foundation designed to be integrated into any embedded system.
+    </div>
 
-    <div class="content-wrapper">
-        <h1 class="main-title">
-          <span class="title-highlight">OpenTitan: Nuvoton & Rust Ecosystem</span>
-        </h1>
-
-        <p class="subtitle">Hardware Transparency meets Memory Safety</p>
-
-        <div class="topics-container">
-            <div class="topic-item">
-                <i class="fas fa-industry"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">Nuvoton Partnership</span>
-                </div>
-            </div>
-
-            <div class="topic-item">
-                <i class="fab fa-rust"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">Rust Community</span>
-                </div>
-            </div>
-
-            <div class="topic-item" style="grid-column: span 2;">
-                <i class="fas fa-microchip"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">TockOS Implementation</span>
-                    <span class="topic-sub">Open-source OS designed specifically for embedded systems and low-power devices.</span>
-                </div>
-            </div>
-
-            <div class="topic-item">
-                <i class="fas fa-layer-group"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">Core vs Host Split</span>
-                </div>
-            </div>
-
-            <div class="topic-item">
-                <i class="fas fa-shield-virus"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">Memory Safety at Scale</span>
-                </div>
-            </div>
-
-            <div class="topic-item" style="grid-column: span 2;">
-                <i class="fas fa-lightbulb"></i>
-                <div class="topic-text-wrapper">
-                    <span class="topic-text">Challenges & Solutions</span>
-                </div>
-            </div>
+    <div class="purpose-grid">
+        <div class="purpose-card">
+            <div class="card-title">Anchor Trust</div>
+            <div class="card-text">Acts as the "First Link" in the security chain, verifying that every piece of software is authentic before it runs.</div>
+        </div>
+        <div class="purpose-card">
+            <div class="card-title">Secure Identity</div>
+            <div class="card-text">Provides a unique, unforgeable hardware identity to the device, essential for cloud and IoT connectivity.</div>
+        </div>
+        <div class="purpose-card">
+            <div class="card-title">Data Protection</div>
+            <div class="card-text">Manages cryptographic keys in a physically isolated environment, keeping them safe even if the main CPU is hacked.</div>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <a class="nav-btn nav-next" href="page_1.html">
+        <a class="nav-btn" href="page_1.html">
             <span>Next Slide</span><i class="fas fa-arrow-right"></i>
         </a>
     </div>
