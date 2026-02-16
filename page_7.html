@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>Post Silicon Validation Framework: Core vs Host</title>
+<title>Post Silicon Validation Framework: Architecture & Implementation</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
@@ -21,119 +21,141 @@
     --nav-height: 80px;
   }
 
-  html, body { height: 100%; }
+  html, body { height: 100%; overflow: hidden; }
   body {
     margin: 0; padding: 0;
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
     background-color: var(--bg);
     color: var(--text);
+    background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, var(--bg) 100%);
   }
 
   .slide-container {
     width: 100vw; height: 100vh;
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
-    isolation: isolate;
   }
 
   .header {
-    padding: 40px 80px 25px 80px;
+    padding: 40px 80px 20px 80px;
     border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-    position: relative; z-index: 2;
+    text-align: left;
+    animation: fadeInDown 0.8s ease-out both;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
   }
+
   .slide-title {
-    font-size: 40px; font-weight: 800;
-    line-height: 1.15; letter-spacing: -0.02em;
-    opacity: 0; transform: translateY(-8px);
-    animation: fadeInDown 700ms ease-out forwards 120ms;
+    font-size: 44px; font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
   .title-highlight { color: #3b82f6; }
-  .title-framework { display: block; font-size: 24px; color: var(--violet); margin-top: 4px; font-weight: 600; }
+  
+  .side-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-left: 3px solid var(--orange);
+    padding-left: 15px;
+    margin-bottom: 5px;
+  }
 
   .content-wrapper {
     flex: 1;
-    padding: 30px 80px calc(var(--nav-height) + 20px) 80px;
+    padding: 20px 80px calc(var(--nav-height) + 10px) 80px;
     display: flex; flex-direction: column;
     justify-content: center;
-    position: relative; z-index: 2;
-    gap: 12px;
+    gap: 30px;
   }
 
   .architecture-container {
-    display: flex; gap: 40px;
-    align-items: stretch; justify-content: space-between;
+    display: flex; gap: 30px;
+    align-items: center; justify-content: space-between;
   }
 
   .component-box {
-    flex: 1; border-radius: 12px; padding: 25px;
-    display: flex; flex-direction: column; gap: 14px;
-    opacity: 0; transform: translateY(12px);
-    box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    flex: 1; border-radius: 16px; padding: 30px;
+    display: flex; flex-direction: column; gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fadeUp 0.8s ease-out both;
   }
-  .host-box { background-color: rgba(251, 146, 60, 0.15); border: 2px solid rgba(251, 146, 60, 0.4); animation: fadeUp 650ms ease-out forwards 220ms; }
-  .core-box { background-color: rgba(16, 185, 129, 0.15); border: 2px solid rgba(16, 185, 129, 0.5); animation: fadeUp 650ms ease-out forwards 360ms; }
 
-  .component-header { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
-  .component-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .host-icon { background-color: rgba(251, 146, 60, 0.3); border: 2px solid rgba(251, 146, 60, 0.6); color: var(--orange); }
-  .core-icon { background-color: rgba(16, 185, 129, 0.3); border: 2px solid rgba(16, 185, 129, 0.7); color: var(--green); }
+  .host-box { background-color: rgba(251, 146, 60, 0.1); border: 2px solid rgba(251, 146, 60, 0.4); }
+  .core-box { background-color: rgba(16, 185, 129, 0.1); border: 2px solid rgba(16, 185, 129, 0.4); }
 
-  .component-title { font-size: 24px; font-weight: 700; margin: 0; }
-  .component-subtitle { font-size: 14px; font-weight: 500; padding: 2px 12px; border-radius: 4px; display: inline-block; }
-  .host-subtitle { background-color: rgba(239, 68, 68, 0.2); color: #fca5a5; }
-  .core-subtitle { background-color: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+  .component-header { display: flex; align-items: center; gap: 16px; }
+  .component-icon { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;}
+  .host-icon { background: rgba(251, 146, 60, 0.2); border: 1px solid var(--orange); color: var(--orange); }
+  .core-icon { background: rgba(16, 185, 129, 0.2); border: 1px solid var(--green); color: var(--green); }
 
-  .component-list { display: flex; flex-direction: column; gap: 8px; }
-  .list-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1; opacity: 0; transform: translateY(8px); }
-  .component-box .list-item:nth-child(1){ animation: fadeUp 520ms ease-out forwards 280ms; }
-  .component-box .list-item:nth-child(2){ animation: fadeUp 520ms ease-out forwards 340ms; }
-  .component-box .list-item:nth-child(3){ animation: fadeUp 520ms ease-out forwards 400ms; }
+  .component-title { font-size: 26px; font-weight: 800; margin: 0; }
+  .lang-tag {
+    display: inline-block; padding: 4px 12px; border-radius: 6px;
+    font-family: monospace; font-size: 13px; font-weight: bold; margin-top: 5px;
+  }
+
+  .component-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px;}
+  .list-item { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--muted); }
+  .list-item i { font-size: 8px; opacity: 0.7; }
 
   .communication-section {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 12px; min-width: 200px; opacity: 0; animation: fadeUp 650ms ease-out forwards 300ms;
+    display: flex; flex-direction: column; align-items: center; gap: 15px; min-width: 180px;
+    animation: fadeUp 0.8s ease-out both 0.2s;
   }
-  .boundary-box { background-color: rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.5); border-radius: 8px; padding: 15px; text-align: center; }
-  .boundary-icon { font-size: 24px; color: #a78bfa; margin-bottom: 4px; }
-  .boundary-title { font-size: 14px; font-weight: 700; color: #c4b5fd; margin-bottom: 4px; }
-  .boundary-text { font-size: 12px; color: #ddd6fe; line-height: 1.3; margin: 0; }
+  .boundary-box { 
+    background-color: rgba(139, 92, 246, 0.15); border: 2px solid rgba(139, 92, 246, 0.5); 
+    border-radius: 12px; padding: 15px; text-align: center; width: 100%;
+  }
+  .boundary-title { font-size: 14px; font-weight: 700; color: #c4b5fd; margin-bottom: 2px; }
+  .boundary-text { font-size: 12px; color: #ddd6fe; }
 
-  .arrow-line-vert, .arrow-line-vert-up { width: 2px; height: 25px; position: relative; background-color: #64748b; }
+  .arrow-line-vert, .arrow-line-vert-up { width: 2px; height: 30px; position: relative; background-color: #64748b; }
   .arrow-line-vert::after { content: ''; position: absolute; bottom: -5px; left: -4px; border-top: 7px solid #64748b; border-left: 5px solid transparent; border-right: 5px solid transparent; }
   .arrow-line-vert-up { background-color: #8b5cf6; }
   .arrow-line-vert-up::before { content: ''; position: absolute; top: -5px; left: -4px; border-bottom: 7px solid #8b5cf6; border-left: 5px solid transparent; border-right: 5px solid transparent; }
 
-  .security-note { background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 650ms ease-out forwards 520ms; }
+  .conclusion-banner {
+    background: linear-gradient(90deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius:15px; padding:20px;
+    text-align:center;
+    animation: fadeUp 0.8s ease-out both 0.4s;
+  }
+  .banner-text { font-size: 20px; font-weight: 600; color: #e2e8f0; }
 
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: var(--nav-height); padding: 0 60px;
     display: flex; justify-content: space-between; align-items: center;
-    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
-    z-index: 100; pointer-events: none;
+    z-index: 100;
   }
   .nav-btn {
-    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    display: inline-flex; align-items: center; gap: 10px;
     padding: 10px 22px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; font-size: 16px; color: #fff;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease;
+    font-weight: 700; color: #fff; background-color:#1e293b; transition: all 0.2s ease;
   }
-  .nav-prev { background-color: #4b5563; }
-  .nav-next { background-color: #2563eb; }
+  .nav-next{ background-color:#2563eb; }
   .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
+
 <body>
 <div class="slide-container">
   <div class="header">
     <h1 class="slide-title">
-      <span class="title-highlight">Post Silicon Validation Framework</span>
-      <span class="title-framework">Architecture Split: Core vs Host</span>
+      <span class="title-highlight">Validation Framework</span><br>
+      Architecture Split
     </h1>
+    <div class="side-title">
+      Key implementation of <br>testing environment
+    </div>
   </div>
 
   <div class="content-wrapper">
@@ -141,22 +163,25 @@
       <div class="component-box host-box">
         <div class="component-header">
           <div class="component-icon host-icon"><i class="fas fa-laptop-code"></i></div>
-          <div><h2 class="component-title">Host Side</h2><span class="component-subtitle host-subtitle">Validation Driver</span></div>
+          <div>
+            <h2 class="component-title">Host Side</h2>
+            <span class="lang-tag bg-orange-900 text-orange-200">Written in Rust</span>
+          </div>
         </div>
         <div class="component-list">
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Drives functional test vectors</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>External to the RoT boundary</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Simulates system interactions</span></div>
+          <div class="list-item"><i class="fas fa-circle"></i><span>Drives functional test vectors</span></div>
+          <div class="list-item"><i class="fas fa-circle"></i><span>High-level memory safety & validation</span></div>
+          <div class="list-item"><i class="fas fa-circle"></i><span>Simulates complex system interactions</span></div>
         </div>
       </div>
 
       <div class="communication-section">
         <div class="boundary-box">
-          <div class="boundary-icon"><i class="fas fa-shield-halved"></i></div>
+          <div class="boundary-icon"><i class="fas fa-shield-halved text-violet-400 mb-1"></i></div>
           <h3 class="boundary-title">Isolation Boundary</h3>
           <p class="boundary-text">Validation API Bridge</p>
         </div>
-        <div class="flex gap-4 mt-2">
+        <div class="flex gap-8">
             <div class="flex flex-col items-center"><span class="text-[10px] font-bold text-slate-500">TEST</span><div class="arrow-line-vert"></div></div>
             <div class="flex flex-col items-center"><div class="arrow-line-vert-up"></div><span class="text-[10px] font-bold text-violet-400">STATUS</span></div>
         </div>
@@ -165,19 +190,21 @@
       <div class="component-box core-box">
         <div class="component-header">
           <div class="component-icon core-icon"><i class="fas fa-microchip"></i></div>
-          <div><h2 class="component-title">Core Side</h2><span class="component-subtitle core-subtitle">Golden Reference</span></div>
+          <div>
+            <h2 class="component-title">Core Side</h2>
+            <span class="lang-tag bg-green-900 text-green-200">Written in C / ASM</span>
+          </div>
         </div>
         <div class="component-list">
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Executes verified security logic</span></div>
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Protects internal silicon state</span></div>
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Monitors hardware integrity</span></div>
+          <div class="list-item"><i class="fas fa-check"></i><span>Low-level determinism & control</span></div>
+          <div class="list-item"><i class="fas fa-check"></i><span>Executes verified security logic</span></div>
+          <div class="list-item"><i class="fas fa-check"></i><span>Protects internal silicon state</span></div>
         </div>
       </div>
     </div>
 
-    <div class="security-note">
-      <i class="fas fa-info-circle"></i>
-      <p class="security-note-text">In Post-Silicon Validation, the Core verifies that the physical Host interfaces meet the design specification without leaking secrets.</p>
+    <div class="conclusion-banner">
+      <p class="banner-text">Verifiable security through strategic language choice and architectural isolation.</p>
     </div>
   </div>
 
