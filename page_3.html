@@ -13,6 +13,7 @@
   :root{
     --bg:#0f172a;
     --blue:#3b82f6;
+    --nuvoton-red:#e60012;
     --text:#ffffff;
     --muted:#cbd5e1;
     --nav-height: 80px;
@@ -32,41 +33,47 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .slide-container{
     width:100vw; height:100vh;
     display:flex; flex-direction:column;
     padding: 40px 80px;
   }
 
-  /* Compact Header with small Logo */
   .header-area {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 2px solid rgba(59, 130, 246, 0.3);
     padding-bottom: 20px;
     margin-bottom: 30px;
+    animation: fadeInDown 700ms ease-out forwards;
   }
 
   .nuvoton-logo-small {
-    height: 40px; /* Much smaller logo */
+    height: 40px;
     width: auto;
   }
 
   .slide-title {
     font-size: 32px;
     font-weight: 800;
-    color: var(--blue);
   }
+  
+  .title-nuvoton { color: var(--nuvoton-red); }
 
   .main-content {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 40px;
     flex: 1;
+    z-index: 2;
   }
 
-  /* Expanded technical explanation */
   .technical-narrative {
     animation: fadeInUp 0.8s ease-out both;
   }
@@ -88,13 +95,13 @@
     color: var(--muted);
   }
 
-  /* Industry Thumbnails as small links */
   .industry-links-sidebar {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     padding: 25px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     animation: fadeInUp 0.8s ease-out both 0.3s;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.18);
   }
 
   .sidebar-label {
@@ -129,7 +136,7 @@
   }
 
   .small-preview-img {
-    width: 80px; /* Small size link preview */
+    width: 80px;
     height: 50px;
     object-fit: cover;
     border-radius: 4px;
@@ -141,20 +148,23 @@
     color: var(--text);
   }
 
-  /* Navigation */
+  /* Standardized Navigation from Protection Page */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: var(--nav-height); padding: 0 60px;
     display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+    z-index: 100; pointer-events: none;
   }
 
   .nav-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 10px 22px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; font-size: 15px; color: #fff;
-    background-color:#1e293b; transition: all 0.2s ease;
+    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px; border-radius: 999px; color: white; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+    transition: all 180ms ease;
   }
-  .nav-next{ background-color:#2563eb; }
+  .nav-prev { background-color: #4b5563; }
+  .nav-next { background-color: #2563eb; }
   .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 </style>
 </head>
@@ -162,7 +172,7 @@
 <body>
 <div class="slide-container">
   <div class="header-area">
-    <h1 class="slide-title">Nuvoton: A Strategic Implementation Partner</h1>
+    <h1 class="slide-title"><span class="title-nuvoton">Nuvoton</span>: A Strategic Implementation Partner</h1>
     <img src="Data/Nuvoton_Technology_logo.svg.jpg" alt="Nuvoton" class="nuvoton-logo-small">
   </div>
 
@@ -218,7 +228,6 @@
   <div class="bottom-nav">
     <a class="nav-btn nav-prev" href="page_2.html"><i class="fas fa-arrow-left"></i> Previous Slide</a>
     <a class="nav-btn nav-next" href="page_5.html">Next Slide <i class="fas fa-arrow-right"></i></a>
-
   </div>
 </div>
 </body>
