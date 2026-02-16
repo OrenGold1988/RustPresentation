@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>Nuvoton: Strategic Project Partner</title>
+<title>Nuvoton's Strategic Role</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
@@ -28,146 +28,130 @@
   }
 
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   .slide-container{
     width:100vw; height:100vh;
     display:flex; flex-direction:column;
-    position:relative; overflow:hidden;
+    padding: 40px 80px;
   }
 
-  .header{
-    padding:40px 80px 10px 80px;
+  /* Compact Header with small Logo */
+  .header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+  }
+
+  .nuvoton-logo-small {
+    height: 40px; /* Much smaller logo */
+    width: auto;
+  }
+
+  .slide-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--blue);
+  }
+
+  .main-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    flex: 1;
+  }
+
+  /* Expanded technical explanation */
+  .technical-narrative {
     animation: fadeInUp 0.8s ease-out both;
   }
 
-  .slide-title{
-    font-size:48px; font-weight:800;
-    letter-spacing:-0.02em;
-  }
-  .title-highlight{ color:#60a5fa; }
-
-  .content-wrapper{
-    flex:1;
-    padding:0 80px calc(var(--nav-height) + 10px) 80px !important;
-    display:flex;
-    flex-direction: column;
-    gap: 25px;
+  .narrative-block {
+    margin-bottom: 25px;
   }
 
-  .top-section {
-    display: grid; 
-    grid-template-columns: 1fr 1.2fr;
-    align-items: center;
-    gap: 40px;
+  .narrative-block h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #93c5fd;
   }
 
-  .logo-container {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: fadeInUp 0.8s ease-out both 0.2s;
+  .narrative-block p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
   }
 
-  .nuvoton-logo {
-    max-width: 80%;
-    height: auto;
-  }
-
-  .text-content {
+  /* Industry Thumbnails as small links */
+  .industry-links-sidebar {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     animation: fadeInUp 0.8s ease-out both 0.3s;
   }
 
-  .highlight-reason {
-    border-left: 4px solid var(--blue);
-    padding-left: 20px;
+  .sidebar-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
     margin-bottom: 20px;
   }
 
-  .capability-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .thumbnail-link {
+    display: block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .thumbnail-box {
+    display: flex;
+    align-items: center;
     gap: 15px;
-  }
-
-  .capability-card {
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    padding: 15px;
-    border-radius: 12px;
-  }
-
-  /* New Bottom Image Section */
-  .industry-context {
-    animation: fadeInUp 0.8s ease-out both 0.5s;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px dashed rgba(255, 255, 255, 0.1);
-  }
-
-  .context-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--blue);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-
-  .image-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .context-image-wrapper {
-    overflow: hidden;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
+    border-radius: 8px;
+    padding: 10px;
   }
 
-  .context-img {
-    width: 100%;
-    height: 160px;
+  .thumbnail-link:hover .thumbnail-box {
+    border-color: var(--blue);
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .small-preview-img {
+    width: 80px; /* Small size link preview */
+    height: 50px;
     object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .context-image-wrapper:hover .context-img {
-    transform: scale(1.05);
+    border-radius: 4px;
   }
 
-  .img-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.7);
-    padding: 5px 10px;
-    font-size: 12px;
+  .preview-label {
+    font-size: 13px;
     font-weight: 600;
+    color: var(--text);
   }
 
+  /* Navigation */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: var(--nav-height); padding: 0 60px;
     display: flex; justify-content: space-between; align-items: center;
-    z-index: 100;
   }
 
   .nav-btn {
-    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    display: inline-flex; align-items: center; gap: 10px;
     padding: 10px 22px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; font-size: 16px; color: #fff;
+    font-weight: 700; font-size: 15px; color: #fff;
     background-color:#1e293b; transition: all 0.2s ease;
   }
   .nav-next{ background-color:#2563eb; }
@@ -177,51 +161,62 @@
 
 <body>
 <div class="slide-container">
-  <div class="header">
-    <h1 class="slide-title">Nuvoton's <span class="title-highlight">Role in OpenTitan</span></h1>
+  <div class="header-area">
+    <h1 class="slide-title">Nuvoton: A Strategic Implementation Partner</h1>
+    <img src="Data/Nuvoton_Technology_logo.svg.jpg" alt="Nuvoton" class="nuvoton-logo-small">
   </div>
 
-  <div class="content-wrapper">
-    <div class="top-section">
-      <div class="logo-container">
-        <img src="Data/Nuvoton_Technology_logo.svg.jpg" alt="Nuvoton Technology Logo" class="nuvoton-logo">
+  <div class="main-content">
+    <div class="technical-narrative">
+      <div class="narrative-block">
+        <h2>Legacy of Trusted Silicon</h2>
+        <p>
+          Google selected Nuvoton as a core partner for the OpenTitan project specifically because of our rich, specialized history in security-first architecture. We provide the foundational expertise required to turn open-source specifications into resilient physical silicon.
+        </p>
       </div>
 
-      <div class="text-content">
-        <div class="highlight-reason">
-          <p class="text-lg text-gray-300">Google chose Nuvoton due to our rich history in specialized controllers that define modern platform security.</p>
-        </div>
+      <div class="narrative-block">
+        <h2>Secure Boot & Embedded Controllers (EC)</h2>
+        <p>
+          Our decades of experience in <strong>Embedded Controllers (EC)</strong> allow us to implement robust Secure Boot sequences. These controllers act as the "First Link" in the hardware chain, ensuring that system firmware is authenticated before the first line of code ever executes.
+        </p>
+      </div>
 
-        <div class="capability-grid">
-          <div class="capability-card">
-            <div class="font-bold text-blue-400 text-base mb-1">Secure Boot EC</div>
-            <p class="text-xs text-gray-400">Embedded Controllers for trusted initialization.</p>
-          </div>
-          <div class="capability-card">
-            <div class="font-bold text-blue-400 text-base mb-1">BMC Expertise</div>
-            <p class="text-xs text-gray-400">Secure Baseboard Management for server infrastructure.</p>
-          </div>
-        </div>
+      <div class="narrative-block">
+        <h2>BMC Leadership</h2>
+        <p>
+          As a leader in <strong>Baseboard Management Controllers (BMC)</strong>, Nuvoton brings critical insights into server-grade security. Our participation ensures that OpenTitan can successfully manage cryptographic keys and system health monitoring in high-stakes data center environments.
+        </p>
       </div>
     </div>
 
-    <div class="industry-context">
-      <div class="context-label">Proven Security Foundations in the Ecosystem</div>
-      <div class="image-grid">
-        <div class="context-image-wrapper">
-          <img src="Data/dellsafebios.jpg" alt="Dell SafeBIOS" class="context-img">
-          <div class="img-caption text-blue-400">Dell SafeBIOS Technology</div>
+    <div class="industry-links-sidebar">
+      <div class="sidebar-label">Industry Implementations</div>
+      
+      <a href="Data/dellsafebios.jpg" target="_blank" class="thumbnail-link">
+        <div class="thumbnail-box">
+          <img src="Data/dellsafebios.jpg" class="small-preview-img">
+          <span class="preview-label">View Dell SafeBIOS</span>
+          <i class="fas fa-external-link-alt ml-auto text-gray-500 text-xs"></i>
         </div>
-        <div class="context-image-wrapper">
-          <img src="Data/hp_sure_start.jpg" alt="HP Sure Start" class="context-img">
-          <div class="img-caption text-blue-400">HP Sure Start Technology</div>
+      </a>
+
+      <a href="Data/hp_sure_start.jpg" target="_blank" class="thumbnail-link">
+        <div class="thumbnail-box">
+          <img src="Data/hp_sure_start.jpg" class="small-preview-img">
+          <span class="preview-label">View HP Sure Start</span>
+          <i class="fas fa-external-link-alt ml-auto text-gray-500 text-xs"></i>
         </div>
-      </div>
+      </a>
+
+      <p class="text-xs text-gray-500 mt-6 italic">
+        * Nuvoton’s specialized EC and BMC knowledge provides the silicon foundation for world-class security solutions like these.
+      </p>
     </div>
   </div>
 
   <div class="bottom-nav">
-    <a class="nav-btn nav-prev" href="page_2.html"><i class="fas fa-arrow-left"></i><span>Back</span></a>
+    <a class="nav-btn nav-prev" href="page_2.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
     <a class="nav-btn nav-next" href="page_4.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
   </div>
 </div>
