@@ -16,7 +16,6 @@
     --violet:#8b5cf6;
     --text:#ffffff;
     --muted:#e2e8f0;
-    /* Standard Nav Height */
     --nav-height: 80px;
   }
 
@@ -36,13 +35,13 @@
   }
 
   .header {
-    padding: 50px 80px 30px 80px;
+    padding: 50px 80px 20px 80px;
     border-bottom: 2px solid rgba(59, 130, 246, 0.3);
     position: relative; z-index: 2;
   }
 
   .slide-title {
-    font-size: 48px; font-weight: 800;
+    font-size: 44px; font-weight: 800;
     line-height: 1.15; letter-spacing: -0.02em;
     opacity: 0; transform: translateY(-8px);
     animation: fadeInDown 700ms ease-out forwards 120ms;
@@ -51,14 +50,14 @@
 
   .content-wrapper {
     flex: 1;
-    /* Padding bottom set to nav-height + buffer to prevent overlap */
-    padding: 50px 80px calc(var(--nav-height) + 20px) 80px;
+    padding: 40px 80px calc(var(--nav-height) + 10px) 80px;
     display: flex; flex-direction: column;
     justify-content: center;
     position: relative; z-index: 2;
+    gap: 30px;
   }
 
-  .bullet-list { display: flex; flex-direction: column; gap: 28px; }
+  .bullet-list { display: flex; flex-direction: column; gap: 22px; }
 
   .bullet-item {
     display: flex; align-items: flex-start; gap: 24px;
@@ -73,17 +72,37 @@
   .bullet-item:nth-child(5) { animation: fadeUp 600ms ease-out forwards 600ms; }
 
   .bullet-icon {
-    width: 48px; height: 48px;
+    width: 44px; height: 44px;
     background-color: rgba(59, 130, 246, 0.15);
     border: 2px solid rgba(59, 130, 246, 0.4);
     border-radius: 8px; display: flex;
     align-items: center; justify-content: center;
-    flex-shrink: 0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    flex-shrink: 0;
   }
-  .bullet-icon i { color: #3b82f6; font-size: 20px; }
+  .bullet-icon i { color: #3b82f6; font-size: 18px; }
 
-  .bullet-text { font-size: 24px; color: var(--muted); line-height: 1.5; margin: 0; }
+  .bullet-text { font-size: 22px; color: var(--muted); line-height: 1.4; margin: 0; }
   .bullet-strong { font-weight: 700; color: var(--text); }
+
+  /* Alternative Note Box */
+  .alt-note {
+    background-color: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 700ms ease-out forwards 800ms;
+  }
+  .alt-icon {
+    font-size: 28px;
+    color: var(--violet);
+  }
+  .alt-content b { color: var(--violet); }
+  .alt-content p { margin: 0; color: var(--muted); font-size: 18px; }
 
   /* Standardized Fixed Navigation */
   .bottom-nav {
@@ -107,25 +126,12 @@
   .nav-next { background-color: #2563eb; }
   .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-  /* Decorative circles */
-  .decorative-element {
-    position: absolute; border-radius: 50%; opacity: 0.05;
-    z-index: 0; pointer-events: none; animation: floatRight 18s ease-in-out infinite;
-  }
-  .circle-1 { width: 350px; height: 350px; background-color: #3b82f6; top: -100px; right: -80px; }
-  .circle-2 { width: 250px; height: 250px; background-color: #8b5cf6; bottom: -80px; left: -60px; animation-name: floatLeft; }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-14px, 10px); } }
-  @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -10px); } }
 </style>
 </head>
 <body>
 <div class="slide-container">
-  <div class="decorative-element circle-1"></div>
-  <div class="decorative-element circle-2"></div>
-
   <div class="header">
     <h1 class="slide-title">
       Core Side: Why <span class="title-highlight">C?</span> (and Assembly)
@@ -155,7 +161,7 @@
       <div class="bullet-item">
         <div class="bullet-icon"><i class="fas fa-tools"></i></div>
         <div class="bullet-content">
-          <p class="bullet-text">Mature <span class="bullet-strong">embedded toolchains</span> and debug tooling for bring-up</p>
+          <p class="bullet-text">Mature <span class="bullet-strong">embedded toolchains</span> for low-level bring-up</p>
         </div>
       </div>
       <div class="bullet-item">
@@ -163,6 +169,13 @@
         <div class="bullet-content">
           <p class="bullet-text"><span class="bullet-strong">Assembly used sparingly</span> for reset, traps, and constant-time primitives</p>
         </div>
+      </div>
+    </div>
+
+    <div class="alt-note">
+      <div class="alt-icon"><i class="fab fa-rust"></i></div>
+      <div class="alt-content">
+        <p><b>Modern Alternative:</b> While C is the current standard, there are successful <b>Rust</b> alternatives for stable firmware, such as <b>TockOS</b>—an open-source OS designed specifically for embedded memory safety.</p>
       </div>
     </div>
   </div>
