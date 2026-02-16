@@ -16,7 +16,6 @@
     --violet:#8b5cf6;
     --text:#ffffff;
     --muted:#e2e8f0;
-    /* Standard Nav Height */
     --nav-height: 80px;
   }
 
@@ -51,7 +50,6 @@
 
   .content-wrapper {
     flex: 1;
-    /* Reserved space for fixed bottom nav */
     padding: 50px 80px calc(var(--nav-height) + 20px) 80px;
     display: flex; flex-direction: column;
     justify-content: center;
@@ -65,12 +63,11 @@
     opacity: 0; transform: translateY(12px);
   }
 
-  /* Staggered bullet entrance */
+  /* Staggered bullet entrance for 4 items */
   .bullet-item:nth-child(1) { animation: fadeUp 600ms ease-out forwards 200ms; }
   .bullet-item:nth-child(2) { animation: fadeUp 600ms ease-out forwards 300ms; }
   .bullet-item:nth-child(3) { animation: fadeUp 600ms ease-out forwards 400ms; }
   .bullet-item:nth-child(4) { animation: fadeUp 600ms ease-out forwards 500ms; }
-  .bullet-item:nth-child(5) { animation: fadeUp 600ms ease-out forwards 600ms; }
 
   .bullet-icon {
     width: 48px; height: 48px;
@@ -85,7 +82,6 @@
   .bullet-text { font-size: 24px; color: var(--muted); line-height: 1.5; margin: 0; }
   .bullet-strong { font-weight: 700; color: var(--text); }
 
-  /* --- Standardized Navigation Bar --- */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: var(--nav-height); padding: 0 60px;
@@ -104,7 +100,6 @@
   .nav-next { background-color: #2563eb; }
   .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-  /* Decorative circles */
   .decorative-element {
     position: absolute; border-radius: 50%; opacity: 0.05;
     z-index: 0; pointer-events: none; animation: floatRight 18s ease-in-out infinite;
@@ -131,12 +126,6 @@
 
   <div class="content-wrapper">
     <div class="bullet-list">
-      <div class="bullet-item">
-        <div class="bullet-icon"><i class="fas fa-diagram-project"></i></div>
-        <div class="bullet-content">
-          <p class="bullet-text"><span class="bullet-strong">Operates outside the trust boundary</span> — handles complex protocols and parsing</p>
-        </div>
-      </div>
       <div class="bullet-item">
         <div class="bullet-icon"><i class="fas fa-lock"></i></div>
         <div class="bullet-content">
