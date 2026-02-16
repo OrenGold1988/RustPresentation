@@ -74,13 +74,13 @@
         box-shadow: 0 10px 26px rgba(0,0,0,0.18);
     }
 
+    /* Staggered animation delays for 5 cards */
     .feature-card:nth-child(1) { animation: fadeUp 600ms ease-out forwards 180ms; }
     .feature-card:nth-child(2) { animation: fadeUp 600ms ease-out forwards 260ms; }
     .feature-card:nth-child(3) { animation: fadeUp 600ms ease-out forwards 340ms; }
     .feature-card:nth-child(4) { animation: fadeUp 600ms ease-out forwards 420ms; }
     .feature-card:nth-child(5) { animation: fadeUp 600ms ease-out forwards 500ms; }
     
-    /* Highlighted TPM Card */
     .tpm-highlight { 
         background-color: rgba(139, 92, 246, 0.08); 
         border: 1px solid rgba(139, 92, 246, 0.3);
@@ -106,7 +106,7 @@
         border: 2px solid rgba(16, 185, 129, 0.3);
         border-radius: 10px; padding: 20px 28px;
         opacity: 0; transform: translateY(10px);
-        animation: fadeUp 650ms ease-out forwards 520ms;
+        animation: fadeUp 650ms ease-out forwards 580ms; /* Slightly delayed for card sequence */
     }
 
     .protections-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
@@ -126,7 +126,6 @@
     }
     .protection-text { font-size: 13px; color: #e2e8f0; font-weight: 500; margin: 0; }
 
-    /* Standardized Navigation */
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
         height: var(--nav-height); padding: 0 60px;
@@ -160,15 +159,6 @@
 
     <div class="content-wrapper">
         <div class="features-grid">
-            <div class="feature-card tpm-highlight">
-                <div class="feature-icon-box tpm-icon-box"><i class="fas fa-vault tpm-icon"></i></div>
-                <h3 class="feature-title" style="color:var(--purple)">Integrated TPM</h3>
-                <p class="feature-description">
-                    <strong>TPM (Trusted Platform Module)</strong> is a global standard for a secure cryptoprocessor. 
-                    OpenTitan acts as a TPM to provide a secure "vault" for platform passwords, certificates, and encryption keys.
-                </p>
-            </div>
-
             <div class="feature-card">
                 <div class="feature-icon-box"><i class="fas fa-check-circle"></i></div>
                 <h3 class="feature-title">Secure Boot</h3>
@@ -191,6 +181,15 @@
                 <div class="feature-icon-box"><i class="fas fa-microchip"></i></div>
                 <h3 class="feature-title">Hardened Crypto</h3>
                 <p class="feature-description">Dedicated circuits for AES and SHA to prevent side-channel timing leaks.</p>
+            </div>
+
+            <div class="feature-card tpm-highlight">
+                <div class="feature-icon-box tpm-icon-box"><i class="fas fa-vault tpm-icon"></i></div>
+                <h3 class="feature-title" style="color:var(--purple)">Integrated TPM</h3>
+                <p class="feature-description">
+                    <strong>TPM (Trusted Platform Module)</strong> is a global standard for a secure cryptoprocessor. 
+                    OpenTitan acts as a TPM to provide a secure "vault" for platform passwords, certificates, and encryption keys.
+                </p>
             </div>
         </div>
 
