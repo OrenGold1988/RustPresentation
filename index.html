@@ -6,7 +6,7 @@
 <title>OpenTitan: Embedded Security Anchor</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://cdn.|fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
@@ -51,7 +51,8 @@
 
     .purpose-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        /* Updated to 2 columns since one card was removed */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 30px;
         max-width: 1100px;
         animation: fadeIn 0.8s ease-out 0.4s both;
@@ -110,10 +111,6 @@
         <div class="purpose-card">
             <div class="card-title">Secure Identity</div>
             <div class="card-text">Provides a unique, unforgeable hardware identity to the device, essential for cloud and IoT connectivity.</div>
-        </div>
-        <div class="purpose-card">
-            <div class="card-title">Data Protection</div>
-            <div class="card-text">Manages cryptographic keys in a physically isolated environment, keeping them safe even if the main CPU is hacked.</div>
         </div>
     </div>
 
