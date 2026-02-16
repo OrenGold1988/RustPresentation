@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>Key Takeaways - Simplified</title>
+<title>Nuvoton: Strategic Project Partner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
@@ -13,7 +13,6 @@
   :root{
     --bg:#0f172a;
     --blue:#3b82f6;
-    --purple:#8b5cf6;
     --text:#ffffff;
     --muted:#cbd5e1;
     --nav-height: 80px;
@@ -25,7 +24,7 @@
     font-family:'Inter',sans-serif;
     background-color:var(--bg);
     color:var(--text);
-    background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, var(--bg) 100%);
+    background-image: radial-gradient(circle at 20% 30%, #1e293b 0%, var(--bg) 100%);
   }
 
   @keyframes fadeInUp {
@@ -40,62 +39,123 @@
   }
 
   .header{
-    padding:60px 80px 40px 80px;
-    text-align: center;
+    padding:40px 80px 10px 80px;
     animation: fadeInUp 0.8s ease-out both;
   }
 
   .slide-title{
-    font-size:56px; font-weight:800;
+    font-size:48px; font-weight:800;
     letter-spacing:-0.02em;
   }
   .title-highlight{ color:#60a5fa; }
 
   .content-wrapper{
     flex:1;
-    padding:0 120px calc(var(--nav-height) + 40px) 120px !important;
-    display:flex; flex-direction:column; 
+    padding:0 80px calc(var(--nav-height) + 10px) 80px !important;
+    display:flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .top-section {
+    display: grid; 
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .logo-container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
     justify-content: center;
-    gap:40px;
+    align-items: center;
+    animation: fadeInUp 0.8s ease-out both 0.2s;
   }
 
-  .takeaways-focus{
-    display:grid; grid-template-columns: 1fr 1fr;
-    gap:30px;
+  .nuvoton-logo {
+    max-width: 80%;
+    height: auto;
   }
 
-  .takeaway-card{
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px; padding: 40px;
-    text-align: center;
+  .text-content {
     animation: fadeInUp 0.8s ease-out both 0.3s;
   }
 
-  .takeaway-icon-box{
-    width:80px; height:80px; border-radius:100%;
-    display:flex; align-items:center; justify-content:center;
-    margin: 0 auto 20px auto;
+  .highlight-reason {
+    border-left: 4px solid var(--blue);
+    padding-left: 20px;
+    margin-bottom: 20px;
   }
 
-  .icon-c { background: rgba(59, 130, 246, 0.2); border: 2px solid var(--blue); }
-  .icon-rust { background: rgba(139, 92, 246, 0.2); border: 2px solid var(--purple); }
-
-  .takeaway-title{ font-size:28px; font-weight:800; margin-bottom: 12px; }
-  .takeaway-description{ font-size:18px; color:var(--muted); line-height:1.6; }
-  .lang-tag { 
-    display: inline-block; padding: 4px 12px; border-radius: 6px; 
-    font-family: monospace; font-weight: bold; margin-top: 10px;
+  .capability-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
 
-  .conclusion-banner{
-    background: linear-gradient(90deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.1) 100%);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius:15px; padding:25px;
-    text-align:center;
-    animation: fadeInUp 0.8s ease-out both 0.6s;
+  .capability-card {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 15px;
+    border-radius: 12px;
   }
-  .banner-text{ font-size:22px; font-weight:600; }
+
+  /* New Bottom Image Section */
+  .industry-context {
+    animation: fadeInUp 0.8s ease-out both 0.5s;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+  }
+
+  .context-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .context-image-wrapper {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+  }
+
+  .context-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .context-image-wrapper:hover .context-img {
+    transform: scale(1.05);
+  }
+
+  .img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
 
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
@@ -118,28 +178,45 @@
 <body>
 <div class="slide-container">
   <div class="header">
-    <h1 class="slide-title">Key <span class="title-highlight">Implementation</span></h1>
+    <h1 class="slide-title">Nuvoton's <span class="title-highlight">Role in OpenTitan</span></h1>
   </div>
 
   <div class="content-wrapper">
-    <div class="takeaways-focus">
-      <div class="takeaway-card">
-        <div class="takeaway-icon-box icon-c"><i class="fas fa-microchip fa-2x text-blue-400"></i></div>
-        <h3 class="takeaway-title">Core Firmware</h3>
-        <p class="takeaway-description">Low-level determinism and hardware control.</p>
-        <span class="lang-tag bg-blue-900 text-blue-200">Written in C / ASM</span>
+    <div class="top-section">
+      <div class="logo-container">
+        <img src="Data/Nuvoton_Technology_logo.svg.jpg" alt="Nuvoton Technology Logo" class="nuvoton-logo">
       </div>
 
-      <div class="takeaway-card">
-        <div class="takeaway-icon-box icon-rust"><i class="fab fa-rust fa-2x text-purple-400"></i></div>
-        <h3 class="takeaway-title">Host PC Side</h3>
-        <p class="takeaway-description">High-level memory safety and input validation.</p>
-        <span class="lang-tag bg-purple-900 text-purple-200">Written in Rust</span>
+      <div class="text-content">
+        <div class="highlight-reason">
+          <p class="text-lg text-gray-300">Google chose Nuvoton due to our rich history in specialized controllers that define modern platform security.</p>
+        </div>
+
+        <div class="capability-grid">
+          <div class="capability-card">
+            <div class="font-bold text-blue-400 text-base mb-1">Secure Boot EC</div>
+            <p class="text-xs text-gray-400">Embedded Controllers for trusted initialization.</p>
+          </div>
+          <div class="capability-card">
+            <div class="font-bold text-blue-400 text-base mb-1">BMC Expertise</div>
+            <p class="text-xs text-gray-400">Secure Baseboard Management for server infrastructure.</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="conclusion-banner">
-      <p class="banner-text">OpenTitan: Verifiable security through strategic language choice.</p>
+    <div class="industry-context">
+      <div class="context-label">Proven Security Foundations in the Ecosystem</div>
+      <div class="image-grid">
+        <div class="context-image-wrapper">
+          <img src="Data/dellsafebios.jpg" alt="Dell SafeBIOS" class="context-img">
+          <div class="img-caption text-blue-400">Dell SafeBIOS Technology</div>
+        </div>
+        <div class="context-image-wrapper">
+          <img src="Data/hp_sure_start.jpg" alt="HP Sure Start" class="context-img">
+          <div class="img-caption text-blue-400">HP Sure Start Technology</div>
+        </div>
+      </div>
     </div>
   </div>
 
