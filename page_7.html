@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>Architecture Split: Core vs Host</title>
+<title>Post Silicon Validation Framework: Core vs Host</title>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
@@ -18,7 +18,6 @@
     --slate:#94a3b8;
     --text:#ffffff;
     --muted:#cbd5e1;
-    /* Standard Nav Height */
     --nav-height: 80px;
   }
 
@@ -44,16 +43,16 @@
     position: relative; z-index: 2;
   }
   .slide-title {
-    font-size: 44px; font-weight: 800;
+    font-size: 40px; font-weight: 800;
     line-height: 1.15; letter-spacing: -0.02em;
     opacity: 0; transform: translateY(-8px);
     animation: fadeInDown 700ms ease-out forwards 120ms;
   }
   .title-highlight { color: #3b82f6; }
+  .title-framework { display: block; font-size: 24px; color: var(--violet); margin-top: 4px; font-weight: 600; }
 
   .content-wrapper {
     flex: 1;
-    /* Reserved space for fixed bottom nav */
     padding: 30px 80px calc(var(--nav-height) + 20px) 80px;
     display: flex; flex-direction: column;
     justify-content: center;
@@ -90,7 +89,6 @@
   .component-box .list-item:nth-child(1){ animation: fadeUp 520ms ease-out forwards 280ms; }
   .component-box .list-item:nth-child(2){ animation: fadeUp 520ms ease-out forwards 340ms; }
   .component-box .list-item:nth-child(3){ animation: fadeUp 520ms ease-out forwards 400ms; }
-  .component-box .list-item:nth-child(4){ animation: fadeUp 520ms ease-out forwards 460ms; }
 
   .communication-section {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -101,14 +99,13 @@
   .boundary-title { font-size: 14px; font-weight: 700; color: #c4b5fd; margin-bottom: 4px; }
   .boundary-text { font-size: 12px; color: #ddd6fe; line-height: 1.3; margin: 0; }
 
-  .arrow-line-vert, .arrow-line-vert-up { width: 2px; height: 25px; position: relative; overflow: hidden; background-color: #64748b; }
+  .arrow-line-vert, .arrow-line-vert-up { width: 2px; height: 25px; position: relative; background-color: #64748b; }
   .arrow-line-vert::after { content: ''; position: absolute; bottom: -5px; left: -4px; border-top: 7px solid #64748b; border-left: 5px solid transparent; border-right: 5px solid transparent; }
   .arrow-line-vert-up { background-color: #8b5cf6; }
   .arrow-line-vert-up::before { content: ''; position: absolute; top: -5px; left: -4px; border-bottom: 7px solid #8b5cf6; border-left: 5px solid transparent; border-right: 5px solid transparent; }
 
   .security-note { background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 12px 20px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 650ms ease-out forwards 520ms; }
 
-  /* --- Standardized Navigation Bar --- */
   .bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: var(--nav-height); padding: 0 60px;
@@ -133,7 +130,10 @@
 <body>
 <div class="slide-container">
   <div class="header">
-    <h1 class="slide-title">Architecture Split: <span class="title-highlight">Core vs Host</span></h1>
+    <h1 class="slide-title">
+      <span class="title-highlight">Post Silicon Validation Framework</span>
+      <span class="title-framework">Architecture Split: Core vs Host</span>
+    </h1>
   </div>
 
   <div class="content-wrapper">
@@ -141,48 +141,48 @@
       <div class="component-box host-box">
         <div class="component-header">
           <div class="component-icon host-icon"><i class="fas fa-laptop-code"></i></div>
-          <div><h2 class="component-title">Host Side</h2><span class="component-subtitle host-subtitle">Less Trusted</span></div>
+          <div><h2 class="component-title">Host Side</h2><span class="component-subtitle host-subtitle">Validation Driver</span></div>
         </div>
         <div class="component-list">
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Runs outside the chip boundary</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Requests services via protocols</span></div>
-          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Handles application logic</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Drives functional test vectors</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>External to the RoT boundary</span></div>
+          <div class="list-item host-item"><i class="fas fa-circle"></i><span>Simulates system interactions</span></div>
         </div>
       </div>
 
       <div class="communication-section">
         <div class="boundary-box">
           <div class="boundary-icon"><i class="fas fa-shield-halved"></i></div>
-          <h3 class="boundary-title">Security Boundary</h3>
-          <p class="boundary-text">Strict interface contracts</p>
+          <h3 class="boundary-title">Isolation Boundary</h3>
+          <p class="boundary-text">Validation API Bridge</p>
         </div>
         <div class="flex gap-4 mt-2">
-            <div class="flex flex-col items-center"><span class="text-[10px] font-bold text-slate-500">REQ</span><div class="arrow-line-vert"></div></div>
-            <div class="flex flex-col items-center"><div class="arrow-line-vert-up"></div><span class="text-[10px] font-bold text-violet-400">RES</span></div>
+            <div class="flex flex-col items-center"><span class="text-[10px] font-bold text-slate-500">TEST</span><div class="arrow-line-vert"></div></div>
+            <div class="flex flex-col items-center"><div class="arrow-line-vert-up"></div><span class="text-[10px] font-bold text-violet-400">STATUS</span></div>
         </div>
       </div>
 
       <div class="component-box core-box">
         <div class="component-header">
           <div class="component-icon core-icon"><i class="fas fa-microchip"></i></div>
-          <div><h2 class="component-title">Core Side</h2><span class="component-subtitle core-subtitle">Highly Trusted</span></div>
+          <div><h2 class="component-title">Core Side</h2><span class="component-subtitle core-subtitle">Golden Reference</span></div>
         </div>
         <div class="component-list">
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Inside the chip, minimal TCB</span></div>
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Security-critical logic</span></div>
-          <div class="list-item core-item"><i class="fas fa-check"></i><span>Secrets remain protected</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Executes verified security logic</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Protects internal silicon state</span></div>
+          <div class="list-item core-item"><i class="fas fa-check"></i><span>Monitors hardware integrity</span></div>
         </div>
       </div>
     </div>
 
     <div class="security-note">
       <i class="fas fa-info-circle"></i>
-      <p class="security-note-text">Separation simplifies threat modeling — only attested results are exposed to the host.</p>
+      <p class="security-note-text">In Post-Silicon Validation, the Core verifies that the physical Host interfaces meet the design specification without leaking secrets.</p>
     </div>
   </div>
 
   <div class="bottom-nav">
-    <a class="nav-btn nav-prev" href="page_5.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+    <a class="nav-btn nav-prev" href="page_5.html"><i class="fas fa-arrow-left"></i><span>Back</span></a>
     <a class="nav-btn nav-next" href="page_8.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
   </div>
 </div>
