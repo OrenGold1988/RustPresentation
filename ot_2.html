@@ -17,6 +17,7 @@
         --text:#ffffff;
         --muted:#cbd5e1;
         --nav-height: 80px;
+        --gold:#f59e0b;
     }
 
     html, body { height: 100%; }
@@ -49,7 +50,12 @@
         animation: fadeInDown 700ms ease-out forwards 120ms;
     }
     .title-highlight { color: var(--blue); }
-
+    .title-badge { 
+        font-size: 16px; background: rgba(245, 158, 11, 0.2); 
+        color: var(--gold); border: 1px solid var(--gold);
+        padding: 4px 12px; border-radius: 999px; vertical-align: middle;
+        margin-left: 15px; text-transform: uppercase; letter-spacing: 1px;
+    }
     .content-wrapper {
         flex: 1;
         padding: 30px 80px calc(var(--nav-height) + 10px) 80px;
@@ -154,6 +160,7 @@
         <h1 class="slide-title">
             <span class="title-highlight">OpenTitan</span><br>
             Silicon Roles and Protections
+            <span class="title-badge">Market Milestone</span>
         </h1>
     </div>
 
@@ -208,8 +215,8 @@
     </div>
 
   <div class="bottom-nav">
-    <a class="nav-btn nav-prev" href="page_1.html"><i class="fas fa-arrow-left"></i> Previous Slide</a>
-    <a class="nav-btn nav-next" href="page_3.html">Next Slide <i class="fas fa-arrow-right"></i></a>
+    <a class="nav-btn nav-prev" href="ot_1.html"><i class="fas fa-arrow-left"></i> Previous Slide</a>
+    <a class="nav-btn nav-next" href="ot_3.html">Next Slide <i class="fas fa-arrow-right"></i></a>
   </div>
 </div>
 </body>

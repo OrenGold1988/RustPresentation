@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=1280, height=720" name="viewport"/>
-<title>OpenTitan: Nuvoton & Rust Ecosystem</title>
+<title>OpenTitan: First Commercial Open-Source RoT</title>
 
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
@@ -53,47 +53,51 @@
     .content-wrapper {
         flex: 1;
         display: flex; flex-direction: column; justify-content: center; align-items: center;
-        padding: 60px 80px calc(var(--nav-height) + 20px) 80px !important;
+        padding: 40px 60px calc(var(--nav-height) + 20px) 60px !important;
         position: relative; z-index: 2;
+        width: 100%; /* Ensure wrapper takes full width */
     }
 
     .main-title {
-        font-size: clamp(36px, 5.5vw, 60px); font-weight: 800;
-        text-align: center; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em;
+        font-size: clamp(32px, 5vw, 56px); font-weight: 800;
+        text-align: center; line-height: 1.1; margin-bottom: 30px; letter-spacing: -0.02em;
         opacity: 0; animation: fadeUp 700ms ease-out forwards;
     }
     .title-highlight { color: var(--accent); }
 
-    .subtitle {
-        font-size: clamp(16px, 2vw, 22px); color: var(--accent-2);
-        text-align: center; font-weight: 600; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 0.1em;
-        opacity: 0; animation: fadeUp 700ms ease-out forwards 120ms;
+    /* THE FIX: Full width box */
+    .summary-box {
+        background-color: rgba(59, 130, 246, 0.05);
+        border-top: 1px solid rgba(59, 130, 246, 0.2);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        width: 100vw; /* Spans entire viewport width */
+        padding: 50px 10%; /* Center the text inside the wide bar */
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        opacity: 0;
+        animation: fadeUp 800ms ease-out forwards 300ms;
     }
 
-    .topics-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; max-width: 1100px; }
-    .topic-item {
-        background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.28);
-        border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; gap: 14px;
-        box-shadow: 0 6px 22px rgba(0,0,0,0.25); opacity: 0;
+    .summary-text {
+        font-size: clamp(20px, 2.5vw, 28px);
+        line-height: 1.7;
+        color: #cbd5e1;
+        font-weight: 400;
+        max-width: 1400px; /* Limits text line length for readability */
+        margin: 0 auto;
     }
-    .topic-item i { color: var(--accent); font-size: 20px; }
-    .topic-text { font-weight: 500; }
 
-    /* Stagger topics */
-    .topic-item:nth-child(1) { animation: fadeUp 650ms ease-out forwards 220ms; }
-    .topic-item:nth-child(2) { animation: fadeUp 650ms ease-out forwards 320ms; }
-    .topic-item:nth-child(3) { animation: fadeUp 650ms ease-out forwards 420ms; }
-    .topic-item:nth-child(4) { animation: fadeUp 650ms ease-out forwards 520ms; }
-    .topic-item:nth-child(5) { animation: fadeUp 650ms ease-out forwards 620ms; }
+    .accent-text {
+        color: var(--accent);
+        font-weight: 700;
+    }
 
-    /* FIXED NAVIGATION STYLING */
     .bottom-nav {
         position: fixed; bottom: 0; left: 0; right: 0;
         height: var(--nav-height); padding: 0 60px;
         display: flex; justify-content: space-between; align-items: center;
         background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
         z-index: 100;
-        pointer-events: auto; /* Changed from none to auto so buttons work */
     }
 
     .nav-btn {
@@ -107,7 +111,7 @@
     .nav-next { background: #2563eb; }
     .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-16px, 10px); } }
     @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(16px, -12px); } }
@@ -122,23 +126,46 @@
 
     <div class="content-wrapper">
         <h1 class="main-title">
-          <span class="title-highlight">OpenTitan: Nuvoton & Rust Ecosystem</span><br>
+          <span class="title-highlight">OpenTitan: First Commercial Open-Source RoT Chip</span>
         </h1>
 
-        <p class="subtitle">Hardware Transparency meets Memory Safety</p>
+        <div class="summary-box">
+            <p class="summary-text">
+                OpenTitan represents a paradigm shift in silicon security, moving away from "black-box" proprietary designs to a <span class="accent-text">fully transparent Root of Trust</span>.<br> 
+                As the world's <span class="accent-text">first commercially</span> available open-source hardware project, it provides a high-quality logical design that is <span class="accent-text">independently verifiable</span>.<br>
+                <!--Produced in partnership with Nuvoton, this chip combines the rigorous security of the Rust-based TockOS ecosystem with commercial-grade manufacturing to ensure absolute integrity from the moment of boot. -->
+            </p>
+        </div>
+        <div class="summary-box">
+    <div class="summary-text" style="text-align: left; max-width: 1200px; margin: 0 auto;">
+        <span class="accent-text" style="display: block; margin-bottom: 25px; text-align: center;">
+            Open Source Hardware addresses the following critical issues:
+        </span>
 
-        <div class="topics-container">
-            <div class="topic-item"><i class="fas fa-industry"></i><p class="topic-text">Nuvoton Partnership</p></div>
-            <div class="topic-item"><i class="fab fa-rust"></i><p class="topic-text">Rust & TockOS Community</p></div>
-            <div class="topic-item"><i class="fas fa-layer-group"></i><p class="topic-text">Core vs Host Split</p></div>
-            <div class="topic-item"><i class="fas fa-shield-virus"></i><p class="topic-text">Memory Safety at Scale</p></div>
-            <div class="topic-item"><i class="fas fa-lightbulb"></i><p class="topic-text">Challenges & Solutions</p></div>
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div style="color: var(--accent); font-size: 28px; line-height: 1;">•</div>
+                        <div>
+                            <strong class="accent-text">Vendor Neutrality and Supply Chain Resilience:</strong>
+                            <span>Open-source hardware prevents "Vendor Lock-in." If a proprietary chip manufacturer goes out of business or changes its terms, the customer is no longer stuck with unsupported silicon.</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div style="color: var(--accent); font-size: 28px; line-height: 1;">•</div>
+                        <div>
+                            <strong class="accent-text">Cost Reduction and Innovation:</strong>
+                            <span>Building a Root of Trust from scratch is incredibly expensive. Open-source hardware allows companies to share the massive R&D costs of the "non-differentiating" security foundations, accelerating time-to-market.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <a class="nav-btn nav-prev" href="index.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
-        <a class="nav-btn nav-next" href="page_1.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
+        <a class="nav-btn nav-prev" href="nuvoton_2.html"><i class="fas fa-arrow-left"></i><span> Previous Slide</span></a>
+        <a class="nav-btn nav-next" href="ot_1.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
     </div>
 </div>
 </body>

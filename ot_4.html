@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>Validation Framework: Architecture & Implementation</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+<style>
+  :root{
+    --bg:#0f172a;
+    --blue:#3b82f6;
+    --green:#10b981;
+    --orange:#fb923c;
+    --violet:#8b5cf6;
+    --slate:#94a3b8;
+    --text:#ffffff;
+    --muted:#cbd5e1;
+    --nav-height: 80px;
+  }
+
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, var(--bg) 100%);
+  }
+
+  .slide-container {
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+
+  .header {
+    padding: 50px 80px 30px 80px;
+    border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+    text-align: left;
+    animation: fadeInDown 0.8s ease-out both;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .slide-title {
+    font-size: 52px; font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .title-highlight { color: #3b82f6; }
+  
+  .side-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-left: 4px solid var(--orange);
+    padding-left: 20px;
+    margin-bottom: 5px;
+  }
+
+  .content-wrapper {
+    flex: 1;
+    padding: 40px 80px calc(var(--nav-height) + 40px) 80px;
+    display: grid;
+    grid-template-columns: 1fr 320px; /* Split for main content and sidebar */
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .architecture-container {
+    display: flex; 
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .comp-row {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .component-box {
+    flex: 1; border-radius: 20px; padding: 30px;
+    display: flex; flex-direction: column; gap: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    animation: fadeUp 0.8s ease-out both;
+  }
+
+  .host-box { background-color: rgba(251, 146, 60, 0.1); border: 2px solid rgba(251, 146, 60, 0.4); }
+  .core-box { background-color: rgba(16, 185, 129, 0.1); border: 2px solid rgba(16, 185, 129, 0.4); }
+
+  .component-header { display: flex; align-items: center; gap: 20px; }
+  .component-icon { width: 60px; height: 60px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px;}
+  .host-icon { background: rgba(251, 146, 60, 0.2); border: 1px solid var(--orange); color: var(--orange); }
+  .core-icon { background: rgba(16, 185, 129, 0.2); border: 1px solid var(--green); color: var(--green); }
+
+  .component-title { font-size: 28px; font-weight: 800; margin: 0; }
+
+  .lang-tag {
+    display: inline-block; 
+    padding: 8px 18px; 
+    border-radius: 10px;
+    font-family: 'Roboto Mono', monospace; 
+    font-size: 14px; 
+    font-weight: 800; 
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .rust-bubble { background-color: rgba(251, 146, 60, 0.25); border: 2px solid #fb923c; color: #fff; }
+  .c-bubble { background-color: rgba(16, 185, 129, 0.25); border: 2px solid #10b981; color: #fff; }
+
+  .component-list { display: flex; flex-direction: column; gap: 12px; }
+  .list-item { display: flex; align-items: center; gap: 12px; font-size: 17px; color: var(--muted); line-height: 1.3; }
+  .list-item i { font-size: 8px; opacity: 0.7; }
+
+  .boundary-box { 
+    background-color: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); 
+    border-radius: 16px; padding: 15px; text-align: center; width: 100%;
+    animation: fadeUp 0.8s ease-out both 0.2s;
+  }
+  .boundary-title { font-size: 16px; font-weight: 700; color: #c4b5fd; }
+
+  /* SIDEBAR IMAGE LINK */
+  .image-sidebar {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeUp 0.8s ease-out both 0.4s;
+    height: fit-content;
+  }
+  .sidebar-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #64748b; margin-bottom: 15px; letter-spacing: 0.1em; }
+  
+  .thumbnail-link { display: block; text-decoration: none; transition: all 0.2s ease; }
+  .thumbnail-box { 
+    background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 12px; padding: 12px; overflow: hidden;
+  }
+  .small-preview-img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; }
+  .preview-label { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .thumbnail-link:hover .thumbnail-box { border-color: var(--blue); background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
+
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: var(--nav-height); padding: 0 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+    z-index: 100; pointer-events: none;
+  }
+
+  .nav-btn {
+    pointer-events: auto; display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 28px; border-radius: 999px;
+    font-weight: 700; font-size: 18px; color: #ffffff;
+    text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    transition: all 180ms ease;
+  }
+  .nav-prev { background-color: #4b5563; }
+  .nav-next { background-color: #2563eb; }
+  .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+
+<body>
+<div class="slide-container">
+  <div class="header">
+    <h1 class="slide-title">
+      <span class="title-highlight">Validation Framework (How to test the chip)</span><br>
+      Architecture Split
+    </h1>
+    <div class="side-title">
+      System Level <br>Interaction Design
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="architecture-container">
+      <div class="comp-row">
+        <div class="component-box host-box">
+          <div class="component-header">
+            <div class="component-icon host-icon"><i class="fas fa-terminal"></i></div>
+            <div>
+              <h2 class="component-title">Validation System</h2>
+              <span class="lang-tag rust-bubble">Written in Rust</span>
+            </div>
+          </div>
+          <div class="component-list">
+            <div class="list-item"><i class="fas fa-circle"></i><span>Drives functional test vectors</span></div>
+            <div class="list-item"><i class="fas fa-circle"></i><span>High-level memory safety & validation</span></div>
+            <div class="list-item"><i class="fas fa-circle"></i><span>Simulates complex system interactions</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="boundary-box">
+        <div class="boundary-title"><i class="fas fa-link mr-2"></i> Isolation Boundary: Validation API Bridge</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="component-box core-box">
+          <div class="component-header">
+            <div class="component-icon core-icon"><i class="fas fa-microchip"></i></div>
+            <div>
+              <h2 class="component-title">Chip Firmware / ROM</h2>
+              <span class="lang-tag c-bubble">Written in C / ASM</span>
+            </div>
+          </div>
+          <div class="component-list">
+            <div class="list-item"><i class="fas fa-check"></i><span>Low-level hardware determinism</span></div>
+            <div class="list-item"><i class="fas fa-check"></i><span>Executes verified security logic</span></div>
+            <div class="list-item"><i class="fas fa-check"></i><span>Protects internal silicon state</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="image-sidebar">
+      <div class="sidebar-label">On-Bench Verification</div>
+      <a href="Data/real_life_testing.jpg" target="_blank" class="thumbnail-link">
+        <div class="thumbnail-box">
+          <img src="Data/real_life_testing.jpg" class="small-preview-img" alt="Real Life Testing">
+          <div class="preview-label">
+            <span>Real Life Testing</span>
+            <i class="fas fa-external-link-alt ml-auto text-blue-400 text-xs"></i>
+          </div>
+        </div>
+      </a>
+      <p class="text-[11px] text-gray-500 mt-4 italic">
+        * Unit testing framework executing on physical silicon hardware targets.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="nav-btn nav-prev" href="ot_3.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+    <a class="nav-btn nav-next" href="ot_5.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
+  </div>
+</div>
+</body>
+</html>

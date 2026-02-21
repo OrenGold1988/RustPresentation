@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nuvoton Hardware Zoom</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+<style>
+    :root {
+        --bg: #0f172a;
+        --blue: #3b82f6;
+        --text: #ffffff;
+        --nav-height: 80px;
+        --header-height: 100px;
+    }
+    
+    html, body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; background-color: var(--bg); }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-image: radial-gradient(circle at 20% 30%, #1e293b 0%, var(--bg) 100%);
+        color: var(--text);
+    }
+
+    /* Header styling consistent with previous slides */
+    .header {
+        padding: 30px 80px 10px 80px;
+        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        height: var(--header-height);
+        animation: fadeInDown 0.8s ease-out both;
+    }
+
+    .slide-title {
+        font-size: 42px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+    }
+
+    .title-highlight { color: var(--blue); }
+
+    .slide-container {
+        width: 100vw; 
+        height: calc(100vh - var(--nav-height) - var(--header-height));
+        display: flex; 
+        position: relative;
+        justify-content: center; 
+        align-items: center;
+        cursor: crosshair;
+    }
+
+    .img-container {
+        position: relative;
+        max-width: 90%; 
+        max-height: 85%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #main-img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .magnifier {
+        position: absolute;
+        border: 3px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        width: 250px; 
+        height: 250px;
+        display: none;
+        pointer-events: none;
+        box-shadow: 0 0 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(255,255,255,0.2);
+        z-index: 50;
+    }
+
+    .bottom-nav {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        height: var(--nav-height); padding: 0 60px;
+        display: flex; justify-content: space-between; align-items: center;
+        background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+        z-index: 100;
+    }
+
+    .nav-btn {
+        pointer-events: auto;
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 22px; border-radius: 999px; color: white; text-decoration: none;
+        font-weight: 700; font-size: 16px; box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+        transition: all 180ms ease;
+    }
+
+    .nav-prev { background-color: #4b5563; }
+    .nav-next { background-color: #2563eb; }
+    
+    .nav-btn:hover { 
+        transform: translateY(-2px); 
+        filter: brightness(1.1); 
+    }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1 class="slide-title">
+        Example of chip in <span class="title-highlight">real motherboard</span>
+    </h1>
+</div>
+
+<div class="slide-container">
+    <div class="img-container" id="zoom-area">
+        <img id="main-img" src="Data/nuvont_on_old_mother_board.jpg" alt="Hardware View">
+        <div id="glass" class="magnifier"></div>
+    </div>
+
+    <div class="bottom-nav">
+        <a class="nav-btn nav-prev" href="nuvoton_1.html"><i class="fas fa-arrow-left"></i> Previous Slide</a>
+        <a class="nav-btn nav-next" href="index_ot.html">Next Slide <i class="fas fa-arrow-right"></i></a>
+    </div>
+</div>
+
+<script>
+    const img = document.getElementById("main-img");
+    const glass = document.getElementById("glass");
+    const container = document.getElementById("zoom-area");
+    const zoom = 3; 
+
+    container.addEventListener("mousemove", moveMagnifier);
+    container.addEventListener("mouseenter", () => glass.style.display = "block");
+    container.addEventListener("mouseleave", () => glass.style.display = "none");
+
+    function moveMagnifier(e) {
+        const rect = img.getBoundingClientRect();
+        
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        if (x > rect.width || x < 0 || y > rect.height || y < 0) {
+            glass.style.display = "none";
+            return;
+        }
+
+        glass.style.display = "block";
+        glass.style.backgroundImage = `url('${img.src}')`;
+        glass.style.backgroundSize = (rect.width * zoom) + "px " + (rect.height * zoom) + "px";
+        
+        let w = glass.offsetWidth / 2;
+        let h = glass.offsetHeight / 2;
+        
+        glass.style.left = (x - w) + "px";
+        glass.style.top = (y - h) + "px";
+
+        glass.style.backgroundPosition = "-" + ((x * zoom) - w) + "px -" + ((y * zoom) - h) + "px";
+    }
+</script>
+
+</body>
+</html>
