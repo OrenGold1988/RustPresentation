@@ -14,7 +14,6 @@
         --blue: #3b82f6;
         --text: #ffffff;
         --nav-height: 80px;
-        --header-height: 100px;
     }
     
     html, body { height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; background-color: var(--bg); }
@@ -23,14 +22,16 @@
         font-family: 'Inter', sans-serif;
         background-image: radial-gradient(circle at 20% 30%, #1e293b 0%, var(--bg) 100%);
         color: var(--text);
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Header styling consistent with previous slides */
     .header {
-        padding: 30px 80px 10px 80px;
+        flex-shrink: 0;
+        padding: 40px 80px 20px 80px;
         border-bottom: 2px solid rgba(59, 130, 246, 0.3);
-        height: var(--header-height);
-        animation: fadeInDown 0.8s ease-out both;
+        position: relative;
+        z-index: 60; 
     }
 
     .slide-title {
@@ -43,32 +44,34 @@
     .title-highlight { color: var(--blue); }
 
     .slide-container {
+        flex-grow: 1;
         width: 100vw; 
-        height: calc(100vh - var(--nav-height) - var(--header-height));
         display: flex; 
         position: relative;
         justify-content: center; 
         align-items: center;
         cursor: crosshair;
+        padding-bottom: var(--nav-height); 
     }
 
     .img-container {
         position: relative;
-        max-width: 90%; 
-        max-height: 85%;
+        max-width: 80%; 
+        max-height: 70%; 
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     #main-img {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 90%;
+        max-height: 80%;
         width: auto;
         height: auto;
         display: block;
         border-radius: 12px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
 
     .magnifier {
@@ -112,7 +115,7 @@
 </head>
 <body>
 
-<div class="header">
+<div class="header" style="animation: fadeInDown 0.8s ease-out both;">
     <h1 class="slide-title">
         Example of chip in <span class="title-highlight">real motherboard</span>
     </h1>
@@ -156,12 +159,14 @@
         glass.style.backgroundSize = (rect.width * zoom) + "px " + (rect.height * zoom) + "px";
         
         let w = glass.offsetWidth / 2;
-        let h = glass.offsetHeight / 2;
+        let h = glass.offsetHeight; // Full height for offset calculation
         
+        // Position glass: Center horizontally (x-w), but ABOVE the cursor (y-h - offset)
         glass.style.left = (x - w) + "px";
-        glass.style.top = (y - h) + "px";
+        glass.style.top = (y - h - 20) + "px"; // 20px is a small gap between cursor and glass
 
-        glass.style.backgroundPosition = "-" + ((x * zoom) - w) + "px -" + ((y * zoom) - h) + "px";
+        // Background position remains focused on the exact cursor coordinates (x,y)
+        glass.style.backgroundPosition = "-" + ((x * zoom) - w) + "px -" + ((y * zoom) - (glass.offsetHeight / 2)) + "px";
     }
 </script>
 
