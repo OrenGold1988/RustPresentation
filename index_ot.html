@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720" name="viewport"/>
+<title>OpenTitan: Nuvoton & Rust Ecosystem</title>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+    :root{
+        --bg-1:#0f172a;
+        --accent:#3b82f6;
+        --accent-2:#8b5cf6;
+        --muted:#94a3b8;
+        --text:#ffffff;
+        --nav-height: 80px;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+    body {
+        margin: 0; padding: 0;
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(1200px 800px at 80% -10%, #1e293b 0%, var(--bg-1) 60%),
+                    radial-gradient(800px 600px at -10% 110%, #141a2a 0%, var(--bg-1) 60%);
+        animation: bgPulse 14s ease-in-out infinite alternate;
+        color: var(--text);
+    }
+
+    .slide-container {
+        width: 100vw; height: 100vh;
+        display: flex; flex-direction: column;
+        position: relative; overflow: hidden;
+        isolation: isolate;
+    }
+
+    .decorative-element {
+        position: absolute; border-radius: 50%; opacity: 0.08;
+        pointer-events: none; z-index: 0;
+    }
+    .circle-1 { width: 420px; height: 420px; background-color: var(--accent); top: -200px; right: -120px; animation: floatRight 18s ease-in-out infinite; }
+    .circle-2 { width: 320px; height: 320px; background-color: var(--accent-2); bottom: -150px; left: -100px; animation: floatLeft 20s ease-in-out infinite; }
+
+    .chip-icon {
+        position: absolute; top: 30px; right: 40px;
+        color: var(--accent); font-size: 48px; z-index: 1;
+        animation: fadeInDown 800ms ease forwards 400ms;
+        opacity: 0.35;
+    }
+
+    .content-wrapper {
+        flex: 1;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 60px 80px calc(var(--nav-height) + 20px) 80px !important;
+        position: relative; z-index: 2;
+    }
+
+    .main-title {
+        font-size: clamp(36px, 5.5vw, 60px); font-weight: 800;
+        text-align: center; line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.02em;
+        opacity: 0; animation: fadeUp 700ms ease-out forwards;
+    }
+    .title-highlight { color: var(--accent); }
+
+    .subtitle {
+        font-size: clamp(16px, 2vw, 22px); color: var(--accent-2);
+        text-align: center; font-weight: 600; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 0.1em;
+        opacity: 0; animation: fadeUp 700ms ease-out forwards 120ms;
+    }
+
+    .topics-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; max-width: 1100px; }
+    .topic-item {
+        background-color: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.28);
+        border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; gap: 14px;
+        box-shadow: 0 6px 22px rgba(0,0,0,0.25); opacity: 0;
+    }
+    .topic-item i { color: var(--accent); font-size: 20px; }
+    .topic-text { font-weight: 500; }
+
+    /* Stagger topics */
+    .topic-item:nth-child(1) { animation: fadeUp 650ms ease-out forwards 220ms; }
+    .topic-item:nth-child(2) { animation: fadeUp 650ms ease-out forwards 320ms; }
+    .topic-item:nth-child(3) { animation: fadeUp 650ms ease-out forwards 420ms; }
+    .topic-item:nth-child(4) { animation: fadeUp 650ms ease-out forwards 520ms; }
+    .topic-item:nth-child(5) { animation: fadeUp 650ms ease-out forwards 620ms; }
+
+    /* FIXED NAVIGATION STYLING */
+    .bottom-nav {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        height: var(--nav-height); padding: 0 60px;
+        display: flex; justify-content: space-between; align-items: center;
+        background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.95) 100%);
+        z-index: 100;
+        pointer-events: auto; /* Changed from none to auto so buttons work */
+    }
+
+    .nav-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 10px 22px; border-radius: 999px; text-decoration: none;
+        font-weight: 700; font-size: 16px; color: white;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.35); transition: all 180ms ease;
+    }
+
+    .nav-prev { background: #4b5563; }
+    .nav-next { background: #2563eb; }
+    .nav-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatRight { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-16px, 10px); } }
+    @keyframes floatLeft { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(16px, -12px); } }
+    @keyframes bgPulse { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(6deg); } }
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <div class="decorative-element circle-1"></div>
+    <div class="decorative-element circle-2"></div>
+    <i class="fas fa-microchip chip-icon" aria-hidden="true"></i>
+
+    <div class="content-wrapper">
+        <h1 class="main-title">
+          <span class="title-highlight">OpenTitan: Nuvoton & Rust Ecosystem</span><br>
+        </h1>
+
+        <p class="subtitle">Hardware Transparency meets Memory Safety</p>
+
+        <div class="topics-container">
+            <div class="topic-item"><i class="fas fa-industry"></i><p class="topic-text">Nuvoton Partnership</p></div>
+            <div class="topic-item"><i class="fab fa-rust"></i><p class="topic-text">Rust & TockOS Community</p></div>
+            <div class="topic-item"><i class="fas fa-layer-group"></i><p class="topic-text">Core vs Host Split</p></div>
+            <div class="topic-item"><i class="fas fa-shield-virus"></i><p class="topic-text">Memory Safety at Scale</p></div>
+            <div class="topic-item"><i class="fas fa-lightbulb"></i><p class="topic-text">Challenges & Solutions</p></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a class="nav-btn nav-prev" href="index.html"><i class="fas fa-arrow-left"></i><span>Previous Slide</span></a>
+        <a class="nav-btn nav-next" href="page_1.html"><span>Next Slide</span><i class="fas fa-arrow-right"></i></a>
+    </div>
+</div>
+</body>
+</html>
